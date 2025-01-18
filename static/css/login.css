@@ -1,0 +1,207 @@
+/* Modern CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Custom Properties */
+:root {
+    --primary: #38bdf8;
+    --primary-dark: #1d80b9;
+    --background: #1e293b;
+    --surface: #1e293b;
+    --text: #e2e8f0;
+    --text-secondary: #add8e6;
+    --error: #ef4444;
+    --success: #1DB954;
+}
+
+/* General Styles */
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background: #0f172a;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.container {
+    background: var(--surface);
+    border-radius: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid #38bdf8;
+}
+
+/* Tabs Styling */
+.tabs {
+    display: flex;
+    background: var(--surface);
+    padding: 1rem 1rem 0;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.tab {
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    color: #add8e6;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+.tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.tab.active {
+    color: #38bdf8;
+    opacity: 1;
+}
+
+.tab.active::after {
+    transform: scaleX(1);
+}
+
+/* Form Styling */
+.form-container {
+    padding: 2rem;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.form-container.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #1d80b9;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #add8e6;
+    font-size: 0.875rem;
+}
+
+input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 1px solid #38bdf8;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #334155;
+    color: var(--text);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
+
+button {
+    width: 100%;
+    background: #334155;
+    color: #38bdf8;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.2);
+}
+
+button:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(14, 165, 233, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+a {
+    display: block;
+    text-align: center;
+    color: #add8e6;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #38bdf8;
+}
+
+/* Input Icons */
+.form-group {
+    position: relative;
+}
+
+.form-group svg {
+    position: absolute;
+    left: 1rem;
+    top: 2.75rem;
+    color: #38bdf8;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Success Message */
+#success-message {
+    display: none;
+    background: #1DB954;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    margin-top: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+}

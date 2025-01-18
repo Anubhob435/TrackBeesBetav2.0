@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Need Help / Assistance</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="static/resources/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/resources/favicon-32x32.png">
+    <link href="../static/css/needhelp.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @media (max-width: 768px) {
+            .help-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .faq-list li a {
+                font-size: 0.9rem;
+            }
+
+            .contact-form label {
+                font-size: 1rem;
+            }
+
+            .contact-form input, .contact-form textarea {
+                font-size: 0.9rem;
+            }
+
+            .contact-form button {
+                font-size: 0.9rem;
+            }
+
+            .chat-box {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+
+            .live-chat {
+                width: 90%;
+                height: 300px;
+                bottom: 60px;
+            }
+
+            .live-chat .chat-header {
+                font-size: 1rem;
+            }
+
+            .live-chat .chat-footer input {
+                font-size: 0.9rem;
+            }
+
+            .live-chat .chat-footer button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="help-container">
+        <button class="back-button" onclick="startJourney()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1><i class="fas fa-hands-helping"></i> Need Help / Assistance</h1>
+
+        <!-- FAQ Section -->
+        <div class="section">
+            <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+            <ul class="faq-list">
+                <li><i class="fas fa-map-marker-alt"></i> <a href="#">How do I track my Child?</a></li>
+                <li><i class="fas fa-location-arrow"></i> <a href="#">How to drop off at another Location</a></li>
+                <li><i class="fas fa-headset"></i> <a href="#">How can I contact customer service?</a></li>
+                <li><i class="fas fa-key"></i> <a href="#">How do I change my account password?</a></li>
+                <li><i class="fas fa-home"></i> <a href="#">Can I update new address?</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="section">
+            <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+            <form class="contact-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+
+                <div class="input-group"></div>
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="input-group message-group">
+                    <i class="fas fa-message"></i>
+                    <textarea id="message" name="message" placeholder="Enter your message" rows="5"></textarea>
+                    <div class="textarea-border"></div>
+                </div>
+
+                <button type="button" id="submitBtn" onclick="submitForm()">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send Message</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chat Box Section -->
+    <div class="chat-box" onclick="toggleChat()">
+        <i class="fas fa-comments"></i> Need Assistance? Chat Now
+    </div>
+
+    <!-- Live Chat Section -->
+    <div class="live-chat" id="liveChat">
+        <div class="chat-header">
+            <i class="fas fa-headset"></i> Live Chat
+            <button class="close-chat" onclick="toggleChat()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle live chat visibility
+        function toggleChat() {
+            const chatBox = document.getElementById('liveChat');
+            chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function startJourney() {
+            window.location.href = "{{ url_for('afterlog') }}"; // Use url_for to reference the afterlog route
+        }
+
+        // Ensure live chat is closed by default on mobile view
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth <= 768) {
+                document.getElementById('liveChat').style.display = 'none';
+            }
+        });
+
+        // Function to simulate form submission
+        function submitForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const icon = submitBtn.querySelector('i');
+            const span = submitBtn.querySelector('span');
+            const originalIcon = icon.className;
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                // Add loading state
+                submitBtn.classList.add('loading');
+                icon.className = 'fas fa-spinner';
+                span.textContent = 'Sending...';
+                
+                // Simulate sending (replace with actual API call)
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    icon.className = 'fas fa-check';
+                    span.textContent = 'Sent Successfully!';
+                    
+                    // Reset form
+                    document.querySelector('.contact-form').reset();
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        icon.className = originalIcon;
+                        span.textContent = 'Send Message';
+                    }, 2000);
+                    
+                }, 1500);
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        // Function to send a message in live chat
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const chatBody = document.getElementById('chatBody');
+            const message = chatInput.value.trim();
+
+            if (message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.textContent = message;
+
+                chatBody.appendChild(messageDiv);
+                chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom
+                chatInput.value = ''; // Clear input field
+
+                // Simulate reply from support
+                setTimeout(() => {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.classList.add('message');
+                    replyDiv.textContent = "Support: We'll be with you shortly!";
+                    chatBody.appendChild(replyDiv);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>

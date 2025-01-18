@@ -1,0 +1,453 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+.help-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #1DB9FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.section {
+    margin-bottom: 40px;
+    background-color: #1e293b;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    color: #e2e8f0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.faq-list {
+    list-style-type: none;
+}
+
+.faq-list li {
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
+}
+
+.faq-list li:hover {
+    transform: translateX(10px);
+}
+
+.faq-list li i {
+    color: #1DB9FF;
+    margin-right: 10px;
+}
+
+.faq-list li a {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1DB9FF;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f8f9fa;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 45px;
+    background-color: #2d3748;
+    border: 2px solid #374151;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    color: #e2e8f0;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #1DB9FF;
+    outline: none;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #94a3b8;
+}
+
+.contact-form textarea {
+    height: 150px;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #1DB9FF, #0099ff);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(29, 185, 255, 0.2);
+}
+
+.contact-form button i {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(29, 185, 255, 0.3);
+    background: linear-gradient(135deg, #0099ff, #1DB9FF);
+}
+
+.contact-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(29, 185, 255, 0.2);
+}
+
+.contact-form button:hover i {
+    transform: translateX(3px) rotate(-10deg);
+}
+
+.contact-form button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.contact-form button:hover::before {
+    left: 100%;
+}
+
+/* Add this if you want to show a loading state */
+.contact-form button.loading {
+    opacity: 0.8;
+    cursor: wait;
+}
+
+.contact-form button.loading i {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.chat-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1DB9FF;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease;
+}
+
+.chat-box:hover {
+    transform: translateY(-5px);
+}
+
+.live-chat {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 450px;
+    background-color: #1e293b;
+    border: 1px solid #2d3748;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #1DB9FF;
+    color: white;
+    padding: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.chat-body {
+    padding: 20px;
+    height: calc(100% - 120px);
+    overflow-y: auto;
+    color: #e2e8f0;
+}
+
+.chat-footer {
+    padding: 15px;
+    background-color: #2d3748;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-footer input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    background-color: #1e293b;
+    border: 2px solid #374151;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+}
+
+.chat-footer button {
+    background-color: #1DB9FF;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-footer button:hover {
+    background-color: #0099ff;
+}
+
+.message {
+    background-color: #2d3748;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.message.sent {
+    background-color: #1DB9FF;
+    color: #fff;
+    margin-left: auto;
+}
+
+.message.received {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    margin-right: auto;
+}
+
+.message-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.message-group i {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: #1DB9FF;
+    font-size: 1.2rem;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.message-group textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px 15px 15px 45px;
+    background-color: #2d3748;
+    border: 2px solid #374151;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #e2e8f0;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.message-group textarea:focus {
+    border-color: #1DB9FF;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(29, 185, 255, 0.1);
+}
+
+.message-group textarea:focus + i {
+    color: #1DB9FF;
+    transform: translateY(-2px);
+}
+
+.message-group:hover i {
+    transform: scale(1.1);
+}
+
+.message-group textarea::placeholder {
+    color: #94a3b8;
+    opacity: 0.8;
+}
+
+.textarea-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #1DB9FF;
+    transition: width 0.3s ease;
+}
+
+.message-group textarea:focus ~ .textarea-border {
+    width: 100%;
+}
+
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #1DB9FF;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+}
+
+@media (max-width: 768px) {
+    .help-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+
+    .faq-list li a {
+        font-size: 0.9rem;
+    }
+
+    .contact-form label {
+        font-size: 1rem;
+    }
+
+    .contact-form input, .contact-form textarea {
+        font-size: 0.9rem;
+    }
+
+    .contact-form button {
+        font-size: 0.9rem;
+    }
+
+    .chat-box {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    .live-chat {
+        width: 90%;
+        height: 300px;
+        bottom: 60px;
+    }
+
+    .live-chat .chat-header {
+        font-size: 1rem;
+    }
+
+    .live-chat .chat-footer input {
+        font-size: 0.9rem;
+    }
+
+    .live-chat .chat-footer button {
+        font-size: 0.9rem;
+    }
+}

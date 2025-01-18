@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Radio</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="static/resources/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/resources/favicon-32x32.png">
+    <link href="../static/css/busradio.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/afterlog" class="back-button"><i class="fas fa-arrow-left"></i></a>
+            <h1><i class="fas fa-broadcast-tower"></i> Bus Radio</h1>
+        </header>
+        
+        <div class="content">
+            <div class="column">
+                <h2><i class="fas fa-users"></i> People in the Room</h2>
+                <div class="person"><i class="fas fa-user-circle"></i>John Doe</div>
+                <div class="person"><i class="fas fa-user-circle"></i>Jane Smith</div>
+                <div class="person"><i class="fas fa-user-circle"></i>Sam Wilson</div>
+                <div class="person"><i class="fas fa-user-circle"></i>Alice Brown</div>
+            </div>
+            
+            <div class="column now-playing">
+                <h2><i class="fas fa-music"></i> Now Playing</h2>
+                <div class="album-art"><i class="fas fa-record-vinyl"></i></div>
+                <div class="progress-bar"><div class="progress"></div></div>
+                <div class="controls">
+                    <button class="control-btn" id="prev"><i class="fas fa-backward"></i></button>
+                    <button class="control-btn" id="play-pause"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" id="next"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h2><i class="fas fa-list-music"></i> Suggest next song</h2>
+                <div class="song"><i class="fas fa-music"></i>Blinding Lights</div>
+                <div class="song"><i class="fas fa-music"></i>Levitating</div>
+                <div class="song"><i class="fas fa-music"></i>Save Your Tears</div>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search for a song...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-copyright"></i> TrackBees.pvt &nbsp;&nbsp;&nbsp; <i class="fab fa-spotify"></i> Powered by Spotify</p>
+        </footer>
+    </div>
+    <script src="../static/js/busradio.js"></script>
+
+</body>
+</html>

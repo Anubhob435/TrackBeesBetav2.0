@@ -1,0 +1,223 @@
+:root {
+    --dark: #0f172a;
+    --surface: #1e293b;
+    --primary: #1DB9FF;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --success: #22c55e;
+    --error: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
+}
+h1, h2 {
+    color: #1DB9FF;
+}
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+header {
+    background: var(--surface);
+    padding: 15px 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Allows absolute positioning of the back button */
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary);
+    cursor: pointer;
+    position: absolute;
+    left: 10px; /* Position it to the far left of the header */
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+}
+
+.gemini-button {
+    background: linear-gradient(135deg, var(--primary), #0099ff);
+    color: var(--dark);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.gemini-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 185, 255, 0.2);
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    flex-grow: 1;
+    margin-left: 30px; /* Optional: Prevent the heading from overlapping the back button */
+}
+
+.content {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+}
+.column {
+    background: var(--surface);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.left-column, .right-column {
+    flex: 1;
+}
+.middle-column {
+    flex: 2;
+}
+.group, .person {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.group:hover, .person:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.active {
+    background: rgba(29, 185, 255, 0.1);
+    border-left: 3px solid var(--primary);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+}
+
+.status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.status.online {
+    background: var(--success);
+}
+
+.status.offline {
+    background: var(--error);
+}
+
+.chat-area {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: var(--dark);
+}
+.message-input {
+    display: flex;
+    gap: 15px;
+}
+.message-input input {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border: 2px solid var(--surface);
+    border-radius: 25px;
+    background-color: var(--dark);
+    color: var(--text);
+    transition: border-color 0.3s ease;
+}
+
+.message-input input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.message-input button {
+    background: var(--primary);
+    color: var(--dark);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.message-input button:hover {
+    transform: scale(1.1);
+}
+.notice-box, .status-updates-box, .quote-box {
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #888;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column; /* Stack columns vertically on small screens */
+    }
+    .gemini-button {
+        font-size: 12px; /* Adjust button font size for smaller screens */
+        padding: 8px 12px;
+    }
+    .message-input input, .message-input button {
+        padding: 8px; /* Adjust input and button padding for smaller screens */
+    }
+    .chat-area {
+        height: 200px; /* Reduce chat area height for smaller screens */
+    }
+    h1 {
+        font-size: 20px; /* Adjust heading font size for smaller screens */
+    }
+    h2 {
+        font-size: 18px; /* Adjust subheading font size for smaller screens */
+    }
+}

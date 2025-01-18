@@ -1,0 +1,146 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    gap: 100px; /* Add space between the two boxes */
+}
+
+.signup-form {
+    background-color: #252525;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #b3b3b3;
+}
+
+input[type="email"] {
+    width: 100%;
+    height: 40px; /* Set a consistent height */
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #333;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    height: 40px; /* Set a consistent height */
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.continue-text {
+    margin: 15px 0;
+    color: #b3b3b3;
+}
+
+.github-button {
+    display: inline-block;
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.github-button:hover {
+    background-color: #444;
+}
+
+.terms {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+.testimonial {
+    margin-left: 20px; /* Space between testimonial and form */
+    padding: 20px;
+    background-color: #252525;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.testimonial-text {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.testimonial-author {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.success-message {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack vertically on smaller screens */
+        align-items: center;
+    }
+
+    .signup-form,
+    .testimonial {
+        width: 90%; /* Ensure both take full width on small screens */
+        max-width: 100%;
+        margin-bottom: 20px; /* Add space between stacked items */
+    }
+}

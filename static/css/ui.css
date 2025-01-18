@@ -1,0 +1,261 @@
+:root {
+    --background: #0f172a;
+    --sidebar-bg: #1e293b;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --input-bg: #1e293b;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    transition: width 0.3s;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--primary);
+}
+
+.sidebar a i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    pointer-events: none; /* Prevents icon from intercepting clicks */
+}
+
+.sidebar a span {
+    pointer-events: none; /* Prevents text from intercepting clicks */
+}
+
+.content {
+    flex-grow: 1;
+    padding: 2rem 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+    transition: padding 0.3s;
+}
+
+header {
+    margin-bottom: 2.5rem;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+p {
+    font-size: 16px;
+    color: var(--text-muted);
+}
+
+/* Form Controls */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    max-width: 300px; /* Set a uniform maximum width */
+    height: 40px; /* Set a consistent height */
+    padding: 0.75rem 1rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+textarea {
+    height: 80px; /* Set a consistent height for textarea */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Toggle switch styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border);
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Form layout */
+form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#settings-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%; /* Full width sidebar on mobile */
+        height: auto;
+    }
+
+    .content {
+        padding: 10px;
+    }
+}
+
+/* Header layout */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+/* Return button styles */
+.return-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.25rem;
+    background-color: var(--sidebar-bg);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.return-button:hover {
+    background-color: var(--border);
+    transform: translateY(-2px);
+}
+
+.return-button i {
+    font-size: 0.9em;
+}

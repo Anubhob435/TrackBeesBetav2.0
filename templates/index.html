@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackBees Maps</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="static/resources/favicon-32x32.png">
+   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Use Flask's url_for to reference the static CSS file -->
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet"/>
+</head>
+<body>
+    <!-- Background and overlay -->
+    <div class="background"></div>
+    <div class="background-overlay"></div>
+
+    <!-- Fixed navigation bar -->
+    <div class="fixed-bar">
+        <div class="left-links">
+            <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+        <div class="right-links">
+
+            <a href="/chat"><i class="fas fa-robot"></i> AI Chat</a>
+
+            <!-- <a href="https://gemini-flask-chat-1.onrender.com/"><i class="fas fa-robot"></i> AI Chat</a> -->
+
+
+            <!-- Use url_for to link to the Flask route for the login page -->
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <button id="toggle-dark-mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Landing section -->
+    <div class="landing-container">
+        <img src="{{ url_for('static', filename='resources/download.png') }}" alt="UEM Logo" class="logo">
+        <div class="landing-title"><i class="fas fa-map-marked-alt"></i> Welcome to TrackBees</div>
+        <div class="landing-subtitle"><i class="fas fa-route"></i> Everyday Journey made fun And Secure</div>
+        <button class="start-button" onclick="startJourney()">
+            Start Journey <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- About section -->
+    <div class="about-section" id="about">
+        <div class="section-icon"><i class="fas fa-info-circle"></i></div>
+        <h2>About This Project</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Interactive Maps</h3>
+                <p>Real-time navigation and tracking for your child's journey. Monitor their location with precision and ease.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-search-location"></i>
+                <h3>Smart Search</h3>
+                <p>Quickly find locations, set destinations, and discover the best routes for your daily commute.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>Live Updates</h3>
+                <p>Get instant notifications and real-time tracking updates about your child's location and journey status.</p>
+            </div>
+        </div>
+        <div class="about-description">
+            <p>TrackBees is designed to provide parents with peace of mind through advanced tracking and monitoring solutions. Our platform ensures safe and secure journey management for your children.</p>
+        </div>
+    </div>
+
+    <!-- Contact section -->
+    <div class="contact-section" id="contact">
+        <div class="section-icon"><i class="fas fa-envelope"></i></div>
+        <h2>Contact Us</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:contact@uemmaps.com">contact@uemmaps.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+91-1234567890</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>123, UEM Campus, Kolkata, India</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <i class="fas fa-copyright"></i> 2024 IEM-UEM Group. All rights reserved.
+    </div>
+
+    <!-- JavaScript for theme and navigation -->
+    <script>
+        function startJourney() {
+            window.location.href = "{{ url_for('afterlog') }}"; // Use url_for to reference the afterlog route
+        }
+
+        async function loadThemeSettings() {
+            const response = await fetch('../data/themes.json');
+            const themes = await response.json();
+            return themes;
+        }
+
+        function applyTheme(theme) {
+            document.body.classList.toggle('dark-mode', theme === 'dark');
+
+            loadThemeSettings().then(themes => {
+                const currentTheme = themes[theme];
+                document.querySelector('.background').style.backgroundImage = `url(${currentTheme.backgroundImage})`;
+                document.body.style.color = currentTheme.textColor;
+                document.querySelectorAll('.about-section, .contact-section').forEach(el => el.style.backgroundColor = currentTheme.sectionBackground);
+                document.querySelector('.start-button').style.backgroundColor = currentTheme.buttonBackground;
+                document.querySelector('.start-button').style.color = currentTheme.buttonTextColor;
+                document.querySelector('.footer').style.color = currentTheme.footerTextColor;
+            });
+        }
+
+        document.getElementById('toggle-dark-mode').addEventListener('click', () => {
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            applyTheme(isDarkMode ? 'dark' : 'light');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+        });
+    </script>
+</body>
+</html>

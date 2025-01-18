@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ola Maps Integration</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="static/resources/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/resources/favicon-32x32.png">
+    <link href="../static/OlaMapsWebSDK/style.css" rel="stylesheet" />
+    <link href="../static/css/map.css" rel="stylesheet"/>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="animation-overlay">
+        <div class="animation-text">TrackBees</div>
+    </div>
+    <div id="side-panel">
+        <h2>TB</h2>
+        <form action="/submit" method="POST">
+            <input type="text" id="autocomplete-input-1" name="destination1" placeholder="Destination 1">
+            <div id="suggestions-1" class="suggestions"></div>
+            <input type="text" id="autocomplete-input-2" name="destination2" placeholder="Destination 2">
+            <div id="suggestions-2" class="suggestions"></div>
+    
+            <button type="submit" class="uem-maps-btn">Find route</button>
+        </form>
+        <button class="uem-maps-btn" onclick="startJourney()">home</button>
+        <button class="uem-settings" onclick="startsettings()">settings⚙️</button>
+    </div>
+    
+    <button id="toggle-panel-btn">☰</button>
+    <button id="go-back-btn">O</button>
+    <button id="toggle-dark-mode" onclick="toggleMapStyle()">☀️</button>
+    <button id="calculate-route-btn" onclick="drawPolygon()">📍</button>
+
+    <div id="search-nearby">
+        <button id="search-nearby-btn">🔍</button>
+        <div id="search-box" class="hidden">
+            <form action="/search" method="POST">
+                <input type="text" id="search-input" name="search_query" placeholder="Search Nearby Places">
+                <button type="submit" id="search-submit-btn">Search</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <div id="map" style="display: none;"></div>
+
+    <div class="footer">TrackBees</div>
+
+    <div id="coordinates"></div>
+
+    <!-- Pass the url_for route to JavaScript -->
+    <script>
+        const afterlogUrl = "{{ url_for('afterlog') }}";
+
+        function startJourney() {
+            window.location.href = afterlogUrl; // Use the Flask-generated URL
+        }
+
+        const settingsurl = "{{ url_for('ui') }}";
+
+        function startsettings() {
+            window.location.href = settingsurl; // Use the Flask-generated URL
+        }
+
+        const sidePanel = document.getElementById('side-panel');
+        const togglePanelBtn = document.getElementById('toggle-panel-btn');
+        const map = document.getElementById('map');
+        const coordinates = document.getElementById('coordinates');
+
+        togglePanelBtn.addEventListener('click', () => {
+            sidePanel.classList.toggle('hidden');
+            if (sidePanel.classList.contains('hidden')) {
+                map.style.marginLeft = '0';
+                map.style.width = '100%';
+                map.style.transform = 'scale(1)';
+                map.style.transformOrigin = 'center';
+                togglePanelBtn.style.left = '10px';
+                togglePanelBtn.innerHTML = '☰';
+                coordinates.style.left = '50%';
+            } else {
+                map.style.marginLeft = '340px';
+                map.style.width = 'calc(100% - 340px)';
+                map.style.transform = 'scale(1)';
+                map.style.transformOrigin = 'left';
+                togglePanelBtn.style.left = '290px';
+                togglePanelBtn.innerHTML = '×';
+                coordinates.style.left = 'calc(50% + 170px)';
+            }
+        });
+    </script>
+
+
+    <script src="../static/OlaMapsWebSDK/olamaps-js-sdk.umd.js"></script>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

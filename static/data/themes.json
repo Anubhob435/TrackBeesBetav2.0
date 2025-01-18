@@ -1,0 +1,18 @@
+{
+    "light": {
+        
+        "textColor": "#000000",
+        "sectionBackground": "rgba(30, 82, 90, 0.8)",
+        "buttonBackground": "#ffffff",
+        "buttonTextColor": "#000000",
+        "footerTextColor": "#000000"
+    },
+    "dark": {
+        
+        "textColor":"#000000",
+        "sectionBackground": "rgba(0, 0, 0, 0.8)",
+        "buttonBackground": "#444444",
+        "buttonTextColor": "#ffffff",
+        "footerTextColor": "#ffffff"
+    }
+}

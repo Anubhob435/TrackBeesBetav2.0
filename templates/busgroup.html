@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Chat</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="static/resources/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/resources/favicon-32x32.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/bugroup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/afterlog" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1><i class="fas fa-bus"></i> Bus Chat</h1>
+            <button class="gemini-button" onclick="openWebsite()">
+                <i class="fas fa-robot"></i> Chat with Gemini
+            </button>
+        </header>
+        
+        <div class="content">
+            <div class="column left-column">
+                <h2><i class="fas fa-users"></i> Common Groups</h2>
+                <div class="group">
+                    <div class="avatar"><i class="fas fa-users-gear"></i></div>
+                    <span>Group 1</span>
+                </div>
+                <h2><i class="fas fa-bus-simple"></i> Your Bus Group</h2>
+                <div class="group active">
+                    <div class="avatar"><i class="fas fa-bus"></i></div>
+                    <span>Bus Group</span>
+                </div>
+                <div class="person">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <span>Person 1</span>
+                    <span class="status online"></span>
+                </div>
+                <div class="person">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <span>Person 2</span>
+                    <span class="status offline"></span>
+                </div>
+            </div>
+            
+            <div class="column middle-column">
+                <h2 id="chat-name"><i class="fas fa-comments"></i> Chat Name</h2>
+                <div class="chat-area" id="chat-area">
+                    <!-- Chat messages will be added here -->
+                </div>
+                <div class="message-input">
+                    <input type="text" id="message-input" placeholder="Type your message...">
+                    <button id="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="column right-column">
+                <div class="notice-box">
+                    <h2><i class="fas fa-bell"></i> Notice</h2>
+                    <p>Important announcements will appear here.</p>
+                </div>
+                <div class="status-updates-box">
+                    <h2><i class="fas fa-clock-rotate-left"></i> Status Updates</h2>
+                    <p>Recent activities and updates will be shown in this section.</p>
+                </div>
+                <div class="quote-box">
+                    <h2><i class="fas fa-quote-left"></i> Today's Quote</h2>
+                    <p>"The journey of a thousand miles begins with one step." - Lao Tzu</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-copyright"></i> TrackBees.pvt</p>
+        </footer>
+    </div>
+
+    <script src="../static/js/busgroup.js"></script>
+</body>
+</html>

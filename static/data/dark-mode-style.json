@@ -1,0 +1,56 @@
+{
+    "version": 8,
+    "name": "Dark Mode",
+    "sources": {
+        "olamaps": {
+            "type": "vector",
+            "url": "https://{your-tileserver-url}"
+        }
+    },
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "paint": {
+                "background-color": "#111"
+            }
+        },
+        {
+            "id": "water",
+            "source": "olamaps",
+            "source-layer": "water",
+            "type": "fill",
+            "paint": {
+                "fill-color": "#2e2e2e"
+            }
+        },
+        {
+            "id": "land",
+            "source": "olamaps",
+            "source-layer": "land",
+            "type": "fill",
+            "paint": {
+                "fill-color": "#1b1b1b"
+            }
+        },
+        {
+            "id": "roads",
+            "source": "olamaps",
+            "source-layer": "roads",
+            "type": "line",
+            "paint": {
+                "line-color": "#333",
+                "line-width": 1.5
+            }
+        },
+        {
+            "id": "buildings",
+            "source": "olamaps",
+            "source-layer": "buildings",
+            "type": "fill",
+            "paint": {
+                "fill-color": "#3a3a3a"
+            }
+        }
+    ]
+}

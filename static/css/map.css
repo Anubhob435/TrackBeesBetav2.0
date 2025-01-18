@@ -1,0 +1,333 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+#map {
+    margin-left: 340px;
+    width: calc(100% - 340px);
+    height: 100%;
+    transition: margin-left 0.5s ease, width 0.4s ease;
+}
+.footer {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 10px;
+
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+.suggestions {
+    background-color: rgba(0, 0, 0, 0.8); /* Translucent white background */
+    max-height: 150px; /* Reduced height to make it smaller */
+    overflow-y: auto;
+    position: absolute;
+    top: 173px; /* Move the box 300px lower from its original position */
+    left: 10px;
+    width: calc(100% - 30px); /* Slightly reduced width for better fit */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 1000;
+
+}
+.suggestion-item {
+    padding: 8px 12px; /* Reduced padding for a smaller look */
+    cursor: pointer;
+    font-size: 13px; /* Slightly smaller font size */
+    transition: background-color 0.3s, color 0.3s;
+    color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background-color: #f7f7f7;
+    color: #1a73e8;
+}
+
+/* Scrollbar styling for webkit browsers */
+.suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+#coordinates {
+    position: absolute;
+    bottom: 5px;
+    left: 62%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+#coordinates:hover {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateX(-50%) translateY(-2px);
+}
+#animation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 2s ease-out;
+    opacity: 1;
+}
+#animation-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.animation-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+}
+#side-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #141414;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    padding: 20px;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.5s ease;
+}
+
+#side-panel.hidden {
+    transform: translateX(-100%);
+}
+#side-panel h2 {
+    margin-bottom: 20px;
+    text-align: left;
+}
+#side-panel input {
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: background-color 0.3s;
+    padding-right: 10px;
+}
+#side-panel input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+#side-panel input:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: none;
+}
+#side-panel button {
+    width: 50%;
+    margin-left: 75px;
+    margin-bottom: 30px;
+    margin-right: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0e9dc4;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 0.9em;
+}
+#side-panel button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+#toggle-panel-btn {
+    position: fixed;
+    top: 10px;
+    left: 295px;
+    z-index: 1002;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: left 0.5s ease, transform 0.3s;
+    width: 40px;
+    height: px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#toggle-panel-btn:hover {
+    transform: scale(1.1);
+}
+
+#toggle-dark-mode{
+    position: fixed;
+    top: 180px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 1001;
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+#map, #side-panel {
+    opacity: 1;
+    transition: opacity 2s ease;
+}
+
+
+
+#toggle-dark-mode:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+#go-back-btn {
+    position: fixed;
+    top: 130px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #000000;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 1000;
+}
+#go-back-btn:hover {
+    background-color: #000000;
+    transform: scale(1.1);
+}
+.uem-maps-btn {
+    padding: 10px 20px;
+    font-size: 2rem;
+    color: #000000;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.uem-maps-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#calculate-route-btn {
+    position: fixed;
+    top: 230px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3f3f3f;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 1000;
+}
+
+#calculate-route-btn:hover {
+background-color: #0056b3; /* Darker blue on hover */
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+}
+
+
+#search-nearby-btn {
+    position: fixed;
+    right: 15px;
+    top: 300px;
+    transform: translateY(-50%);
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #3f3f3f;;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#search-box {
+    position: fixed;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+}
