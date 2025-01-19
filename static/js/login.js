@@ -1,4 +1,5 @@
 // JavaScript for signup form submission
+/*
 document.getElementById('signup-form').addEventListener('submit', function (event) {
     event.preventDefault();
     
@@ -22,7 +23,9 @@ document.getElementById('signup-form').addEventListener('submit', function (even
     showMessage('Account created successfully!', 'success');
     document.getElementById('signup-form').reset();
 });
+*/
 
+// Keep the rest of the JavaScript code
 function showMessage(message, type) {
     const messageEl = document.getElementById('success-message');
     messageEl.textContent = message;

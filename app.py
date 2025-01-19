@@ -136,23 +136,26 @@ def get_route():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        name = request.form['name']
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        username = request.form['username']
         phone = request.form['phone']
+        email = request.form['email']
         password = request.form['password']
-        dob = request.form['dob']
-        balance = INITIAL_BALANCE
+        role = request.form['role']
+        name = f"{firstname} {lastname}"
 
         conn = connect_to_db()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO abc (phone, name, password, dob, balance) VALUES (%s, %s, %s, %s, %s)",
-            (phone, name, password, dob, balance)
+            "INSERT INTO users (username, password, role, first_name, last_name, email, phone_number) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (username, password, role, firstname, lastname, email, phone)
         )
         conn.commit()
         cursor.close()
         conn.close()
 
-        return redirect(url_for('shop', phone=phone))
+        return redirect(url_for('index'))  # Changed to redirect to index page
 
     return render_template('register.html')
 
@@ -165,15 +168,16 @@ def login():
 
         conn = connect_to_db()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM abc WHERE phone = %s", (phone,))
+        cursor.execute("SELECT * FROM users WHERE phone_number = %s", (phone,))
         user = cursor.fetchone()
         cursor.close()
         conn.close()
 
         if user and user[2] == password:
-            return redirect(url_for('shop', phone=phone))
+            session['user_id'] = user[0]  # Store user ID in session
+            return redirect(url_for('afterlog'))
         else:
-            return "Invalid credentials. Please try again."
+            return "Match not found. Please try again."
 
     return render_template('login.html')
 

@@ -205,3 +205,57 @@ a:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
 }
+
+/* Role Buttons Styling */
+.role-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.role-buttons input[type="radio"] {
+    display: none;
+}
+
+.role-button {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    background: #334155;
+    border: 1px solid #38bdf8;
+    border-radius: 0.75rem;
+    color: #add8e6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.role-buttons input[type="radio"]:checked + .role-button {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.role-button:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+/* Form Row Styling */
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.form-group.half {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Adjust input padding for side by side layout */
+.form-group.half input {
+    padding-right: 0.5rem;
+}
+
+.form-group.half svg {
+    left: 0.75rem;
+    top: 2.75rem;
+}

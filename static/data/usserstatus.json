@@ -1,0 +1,10 @@
+[
+    {
+        "status": "1",
+        "message": "Usser is active"
+    },
+    {
+        "status": "2",
+        "message": "Usser is inactive"
+    }
+]

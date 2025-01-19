@@ -1,46 +1,38 @@
-import requests
-import googlemaps
-import json
+import mysql.connector
 
-# Define the API endpoint and parameters
-url = "https://api.olamaps.io/routing/v1/directions"
-api_key = "rxS3WOVB7zNbC0kvfLtpljJVa6lAqoIZpoqsytwU"  # Replace with your actual API key
-x_request_id = "your_request_id_here"  # Replace with your actual request ID
+DB_HOST = "buh89x1pi8cgvaw4161i-mysql.services.clever-cloud.com"
+DB_USER = "ucwyejivetooukiz"
+DB_PASSWORD = "aAo8DieytbUo0FiYV4RY"
+DB_NAME = "buh89x1pi8cgvaw4161i"
 
-# Parameters without waypoints
-params = {
-    'origin': ' 22.459057, 88.379041',
-    'destination': '22.560322, 88.490434',
-    'api_key': api_key
-}
-# Headers
-headers = {
-    'X-Request-Id': x_request_id
-}
+conn = mysql.connector.connect(
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    database=DB_NAME
+)
 
-# Make the POST request
-response = requests.post(url, headers=headers, params=params)
+if conn.is_connected():
+    print("Connected")
 
-# Check if the request was successful
-if response.status_code == 200:
+    mycursor = conn.cursor()
 
-    data = response.json()
-    overview_polyline = data['routes'][0]['overview_polyline']
-    
-    # Decode the polyline
-    decoded_points = googlemaps.convert.decode_polyline(overview_polyline)
-    
-    # Convert decoded points to a list of (longitude, latitude) tuples
-    points_list = [[point['lng'], point['lat']] for point in decoded_points]
+try:
+    # Execute the SELECT query
+    mycursor.execute("SELECT * FROM users")  # Select all columns and rows from the 'users' table
 
-    with open('data.json', 'w') as json_file:
-    # Step 3: Convert the Python array to JSON and write it to the file
-        json.dump(points_list, json_file)
+    # Fetch all the results
+    myresult = mycursor.fetchall()
 
-    print("Array has been written to data.json")
-    
-    print(points_list)
+    # Print the table header (column names)
+    column_names = [i[0] for i in mycursor.description] #extract column names
+    print("|".join(column_names))
+    print("-" * (sum(len(name) + 1 for name in column_names))) #print separator
 
-else:
-    print(f"Request failed with status code: {response.status_code}")
-    print(response.text)  # Display the error message
+    # Print the table data
+    for row in myresult:
+        print(" | ".join(str(value) for value in row)) #convert values to string before joining
+        
+
+except mysql.connector.Error as err:
+    print(f"Error: {err}")
