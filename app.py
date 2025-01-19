@@ -4,6 +4,7 @@ import json
 import os
 import mysql.connector
 from dotenv import load_dotenv
+import googlemaps
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -21,7 +22,7 @@ genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 model = genai.GenerativeModel('gemini-pro')
 
 
-
+#
 # Constants for database connection
 DB_HOST = "buh89x1pi8cgvaw4161i-mysql.services.clever-cloud.com"
 DB_USER = "ucwyejivetooukiz"
@@ -225,6 +226,109 @@ def get_darkmode_styles():
     with open('data/dark-mode-style.json') as f:
         data = f.read()
     return jsonify(data)
+
+@app.route('/save_selected_location', methods=['POST'])
+def save_selected_location():
+    location = request.json
+    try:
+        with open('static/js/route.json', 'r+') as file:
+            data = json.load(file)
+            data['routeData'].append(location)
+            file.seek(0)
+            json.dump(data, file, indent=4)
+        return jsonify({"message": "Selected location saved successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/save_route_json', methods=['POST'])
+def save_route_json():
+    route_data = request.json
+    try:
+        with open('static/js/route.json', 'w') as file:
+            json.dump(route_data, file, indent=4)
+        return jsonify({"message": "Route data saved successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/save_top_suggestion', methods=['POST'])
+def save_top_suggestion():
+    suggestion = request.json
+    try:
+        with open('static/js/top_suggestion.json', 'w') as file:
+            json.dump(suggestion, file, indent=4)
+        return jsonify({"message": "Top suggestion saved successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/save_top_suggestion_1', methods=['POST'])
+def save_top_suggestion_1():
+    suggestion = request.json
+    try:
+        with open('static/js/top_suggestion_1.json', 'w') as file:
+            json.dump(suggestion, file, indent=4)
+        return jsonify({"message": "Top suggestion for destination 1 saved successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/save_top_suggestion_2', methods=['POST'])
+def save_top_suggestion_2():
+    suggestion = request.json
+    try:
+        with open('static/js/top_suggestion_2.json', 'w') as file:
+            json.dump(suggestion, file, indent=4)
+        return jsonify({"message": "Top suggestion for destination 2 saved successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/get_route_from_suggestions', methods=['POST'])
+def get_route_from_suggestions():
+    try:
+        with open('static/js/top_suggestion_1.json', 'r') as file:
+            suggestion1 = json.load(file)
+        with open('static/js/top_suggestion_2.json', 'r') as file:
+            suggestion2 = json.load(file)
+
+        origin_lat = suggestion1['geometry']['location']['lat']
+        origin_lng = suggestion1['geometry']['location']['lng']
+        destination_lat = suggestion2['geometry']['location']['lat']
+        destination_lng = suggestion2['geometry']['location']['lng']
+
+        url = "https://api.olamaps.io/routing/v1/directions"
+        api_key = API_KEY
+        x_request_id = REQUEST_ID
+
+        params = {
+            'origin': f'{origin_lat},{origin_lng}',
+            'destination': f'{destination_lat},{destination_lng}',
+            'api_key': api_key
+        }
+
+        headers = {
+            'X-Request-Id': x_request_id
+        }
+
+        response = requests.post(url, headers=headers, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            overview_polyline = data['routes'][0]['overview_polyline']
+
+            # Decode the polyline
+            decoded_points = googlemaps.convert.decode_polyline(overview_polyline)
+
+            # Convert decoded points to a list of (longitude, latitude) tuples
+            points_list = [[point['lng'], point['lat']] for point in decoded_points]
+
+            with open('static/js/coordinates.json', 'w') as json_file:
+                json.dump(points_list, json_file)
+
+            return jsonify({'message': 'Route information saved to static/js/coordinates.json', 'draw_polygon': True})
+
+        else:
+            return jsonify({'error': f"Request failed with status code: {response.status_code}", 'details': response.text}), 500
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Running the app
 if __name__ == '__main__':

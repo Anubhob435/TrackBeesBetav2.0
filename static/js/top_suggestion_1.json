@@ -1,0 +1,80 @@
+{
+    "reference": "5000316917413",
+    "types": [
+        "museum"
+    ],
+    "matched_substrings": [
+        {
+            "offset": 0,
+            "length": 8
+        },
+        {
+            "offset": 9,
+            "length": 3
+        }
+    ],
+    "terms": [
+        {
+            "offset": 0,
+            "value": "Victoria Memorial"
+        },
+        {
+            "offset": 19,
+            "value": "\u09ad\u09bf\u0995\u09cd\u099f\u09cb\u09b0\u09bf\u09af\u09bc\u09be \u09ae\u09c7\u09ae\u09cb\u09b0\u09bf\u09af\u09bc\u09be\u09b2 \u09b9\u09b2"
+        },
+        {
+            "offset": 46,
+            "value": "1"
+        },
+        {
+            "offset": 49,
+            "value": "Queen's Way"
+        },
+        {
+            "offset": 62,
+            "value": "Maidan"
+        },
+        {
+            "offset": 70,
+            "value": "Kolkata"
+        },
+        {
+            "offset": 79,
+            "value": "West Bengal"
+        },
+        {
+            "offset": 92,
+            "value": "700071"
+        },
+        {
+            "offset": 100,
+            "value": "India"
+        }
+    ],
+    "structured_formatting": {
+        "main_text_matched_substrings": [
+            {
+                "offset": 0,
+                "length": 8
+            },
+            {
+                "offset": 9,
+                "length": 3
+            }
+        ],
+        "secondary_text_matched_substrings": [],
+        "secondary_text": "\u09ad\u09bf\u0995\u09cd\u099f\u09cb\u09b0\u09bf\u09af\u09bc\u09be \u09ae\u09c7\u09ae\u09cb\u09b0\u09bf\u09af\u09bc\u09be\u09b2 \u09b9\u09b2, 1, Queen's Way, Maidan, Kolkata, West Bengal, 700071, India",
+        "main_text": "Victoria Memorial"
+    },
+    "description": "Victoria Memorial, \u09ad\u09bf\u0995\u09cd\u099f\u09cb\u09b0\u09bf\u09af\u09bc\u09be \u09ae\u09c7\u09ae\u09cb\u09b0\u09bf\u09af\u09bc\u09be\u09b2 \u09b9\u09b2, 1, Queen's Way, Maidan, Kolkata, West Bengal, 700071, India",
+    "geometry": {
+        "location": {
+            "lng": 88.34256,
+            "lat": 22.54485
+        }
+    },
+    "place_id": "ola-platform:5000316917413",
+    "layer": [
+        "venue"
+    ]
+}

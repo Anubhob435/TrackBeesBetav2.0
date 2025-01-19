@@ -13,16 +13,16 @@ let startLocation, endLocation;
 const lightStyle = "https://api.olamaps.io/tiles/vector/v1/styles/default-light-standard/style.json";
 const darkStyle = "https://api.olamaps.io/tiles/vector/v1/styles/default-dark-standard/style.json";
 
-const searchNearbyBtn = document.getElementById('search-nearby-btn');
-const searchBox = document.getElementById('search-box');
+// Remove old search button event listener
+// const searchNearbyBtn = document.getElementById('search-nearby-btn');
+// const searchBox = document.getElementById('search-box');
+// 
+// searchNearbyBtn.addEventListener('click', () => {
+//     searchBox.classList.toggle('hidden');
+//     searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
+// });
 
-searchNearbyBtn.addEventListener('click', () => {
-    searchBox.classList.toggle('hidden');
-    searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
-});
-
-
-
+//
 function initializeMap(lat, lng) {
     myMap = olaMaps.init({
         style: "https://api.olamaps.io/tiles/vector/v1/styles/default-dark-standard/style.json", // Changed to dark style
@@ -190,6 +190,13 @@ function handleAutocomplete(inputId, suggestionsId) {
                     suggestionsElement.innerHTML = ''; // Clear previous suggestions
 
                     if (data.predictions && data.predictions.length > 0) {
+                        const topSuggestion = data.predictions[0];
+                        if (inputId === 'autocomplete-input-1') {
+                            saveTopSuggestion(topSuggestion, 'destination1');
+                        } else if (inputId === 'autocomplete-input-2') {
+                            saveTopSuggestion(topSuggestion, 'destination2');
+                        }
+
                         data.predictions.forEach((prediction) => {
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
@@ -226,6 +233,9 @@ function handleAutocomplete(inputId, suggestionsId) {
 
                                     marker.setPopup(popup);
                                     popup.toggle();
+
+                                    // Save selected location to route.json
+                                    saveSelectedLocation(prediction);
 
                                     // Clear suggestions
                                     suggestionsElement.innerHTML = '';
@@ -303,6 +313,40 @@ function handleAutocomplete(inputId, suggestionsId) {
     });
 }
 
+function saveTopSuggestion(suggestion, destination) {
+    const endpoint = destination === 'destination1' ? '/save_top_suggestion_1' : '/save_top_suggestion_2';
+    fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(suggestion),
+    })
+    .then(res => res.json())
+    .then(result => console.log(`Top suggestion for ${destination} saved:`, result))
+    .catch(err => console.error(`Error saving top suggestion for ${destination}:`, err));
+}
+
+function saveSelectedLocation(location) {
+    fetch('/save_selected_location', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(location),
+    })
+    .then(res => res.json())
+    .then(result => console.log('Selected location saved:', result))
+    .catch(err => console.error('Error saving selected location:', err));
+}
+
+function saveRouteData(routeData) {
+    fetch('/save_route_json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(routeData),
+    })
+    .then(res => res.json())
+    .then(result => console.log('Route data saved:', result))
+    .catch(err => console.error('Error saving route data:', err));
+}
+
 
 //let x_coordinates = [88.48984775052655, 22.560128244259160];
 //let y_coordinates = [88.48745859470952, 22.596744505519403];
@@ -313,7 +357,7 @@ function handleAutocomplete(inputId, suggestionsId) {
 function drawPolygon() {
     console.log('Fetching the JSON file...');
 
-    fetch('static/data/data.json')
+    fetch('static/js/coordinates.json')
         .then(response => response.json())
         .then(data => {
             console.log('Parsing the JSON data...');
@@ -358,7 +402,18 @@ myMap.on('load', function() {
     document.getElementById('calculate-route-btn').disabled = false;
 });
 
-
+async function fetchRouteFromSuggestions() {
+    try {
+        const response = await fetch('/get_route_from_suggestions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await response.json();
+        console.log(result.message);
+    } catch (error) {
+        console.error('Error fetching route from suggestions:', error);
+    }
+}
 
 function calculateRoute(start, end) {
     const apiKey = 'rxS3WOVB7zNbC0kvfLtpljJVa6lAqoIZpoqsytwU'; // Replace with your API key
@@ -392,6 +447,132 @@ function calculateRoute(start, end) {
     .catch(error => {
         console.error('Error calculating route:', error);
     });
+}
+
+async function fetchCoordinates(address) {
+    const apiKey = 'rxS3WOVB7zNbC0kvfLtpljJVa6lAqoIZpoqsytwU'; // Your API key
+    const requestId = 'XXX';
+    const url = `https://api.olamaps.io/places/v1/geocode?address=${encodeURIComponent(address)}&language=hi&api_key=${apiKey}`;
+    const response = await fetch(url, { headers: { 'X-Request-Id': requestId } });
+    const data = await response.json();
+    // Assuming data.results[0] contains lat and lng
+    return [data.results[0].lat, data.results[0].lng];
+}
+
+async function fetchAndDisplayRoute(origin, destination) {
+    const apiKey = 'rxS3WOVB7zNbC0kvfLtpljJVa6lAqoIZpoqsytwU';
+    const requestId = 'XXX';
+    const routeUrl = `https://api.olamaps.io/routing/v1/directions?origin=${origin[0]},${origin[1]}&destination=${destination[0]},${destination[1]}&api_key=${apiKey}`;
+    const response = await fetch(routeUrl, { headers: { 'X-Request-Id': requestId } });
+    const data = await response.json();
+    // Parse route geometry and draw on the map...
+    // myMap.addLayer({ ... });
+    saveRouteData(data);
+}
+
+document.getElementById('calculate-route-btn').addEventListener('click', async () => {
+    const originAddr = document.getElementById('origin').value;
+    const dest1 = document.getElementById('destination1').value;
+    const dest2 = document.getElementById('destination2').value;
+    if (originAddr && dest1) {
+        const originCoords = await fetchCoordinates(originAddr);
+        const dest1Coords = await fetchCoordinates(dest1);
+        await fetchAndDisplayRoute(originCoords, await dest1Coords);
+    }
+    if (dest1 && dest2) {
+        const dest1Coords = await fetchCoordinates(dest1);
+        const dest2Coords = await fetchCoordinates(dest2);
+        await fetchAndDisplayRoute(await dest1Coords, await dest2Coords);
+    }
+    await fetchRouteFromSuggestions();
+});
+
+document.querySelector('.uem-maps-btn[type="submit"]').addEventListener('click', async (event) => {
+    event.preventDefault(); // Prevent the form from submitting
+
+    try {
+        const response = await fetch('/get_route_from_suggestions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await response.json();
+        console.log(result.message);
+
+        // Fetch the coordinates from coordinates.json and mark them on the map
+        const coordinatesResponse = await fetch('/static/js/coordinates.json');
+        const coordinatesData = await coordinatesResponse.json();
+        markCoordinatesOnMap(coordinatesData);
+
+        // Call drawPolygon if the response indicates to do so
+        if (result.draw_polygon) {
+            drawPolygon();
+        }
+    } catch (error) {
+        console.error('Error fetching route from suggestions:', error);
+    }
+});
+
+function markCoordinatesOnMap(data) {
+    if (data.routes && data.routes.length > 0) {
+        const route = data.routes[0];
+        const coordinates = route.legs[0].steps.map(step => [step.start_location.lng, step.start_location.lat]);
+
+        // Add the route to the map
+        if (myMap.getSource('route')) {
+            myMap.removeLayer('route');
+            myMap.removeSource('route');
+        }
+
+        myMap.addSource('route', {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                    type: 'LineString',
+                    coordinates: coordinates,
+                },
+            },
+        });
+
+        myMap.addLayer({
+            id: 'route',
+            type: 'line',
+            source: 'route',
+            layout: { 'line-join': 'round', 'line-cap': 'round' },
+            paint: {
+                'line-color': '#f00',
+                'line-width': 4,
+            },
+        });
+
+        // Add markers for the start and end locations
+        const startLocation = route.legs[0].start_location;
+        const endLocation = route.legs[0].end_location;
+
+        addMarker(startLocation.lng, startLocation.lat, 'Start');
+        addMarker(endLocation.lng, endLocation.lat, 'End');
+    } else {
+        console.error('No route found in the data');
+    }
+}
+
+function addMarker(lng, lat, label) {
+    const marker = olaMaps
+        .addMarker({
+            offset: [0, 6],
+            anchor: 'bottom',
+            color: 'blue',
+        })
+        .setLngLat([lng, lat])
+        .addTo(myMap);
+
+    const popup = olaMaps
+        .addPopup({ offset: [0, -30], anchor: 'bottom' })
+        .setHTML(`<div>${label}</div>`);
+
+    marker.setPopup(popup);
+    popup.toggle();
 }
 
 getLocation();

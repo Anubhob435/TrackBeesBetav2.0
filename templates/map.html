@@ -8,7 +8,17 @@
     <link rel="icon" type="image/png" sizes="32x32" href="static/resources/favicon-32x32.png">
     <link href="../static/OlaMapsWebSDK/style.css" rel="stylesheet" />
     <link href="../static/css/map.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .animation-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
@@ -16,38 +26,44 @@
         <div class="animation-text">TrackBees</div>
     </div>
     <div id="side-panel">
-        <h2>TB</h2>
+        <h2>TrackBees</h2>
         <form action="/submit" method="POST">
-            <input type="text" id="autocomplete-input-1" name="destination1" placeholder="Destination 1">
+            <input type="text" id="autocomplete-input-1" name="destination1" placeholder="Enter start location...">
             <div id="suggestions-1" class="suggestions"></div>
-            <input type="text" id="autocomplete-input-2" name="destination2" placeholder="Destination 2">
+            <input type="text" id="autocomplete-input-2" name="destination2" placeholder="Enter destination...">
             <div id="suggestions-2" class="suggestions"></div>
     
-            <button type="submit" class="uem-maps-btn">Find route</button>
+            <button type="submit" class="uem-maps-btn">Find Route</button>
         </form>
-        <button class="uem-maps-btn" onclick="startJourney()">home</button>
-        <button class="uem-settings" onclick="startsettings()">settings⚙️</button>
+        <button class="uem-maps-btn" onclick="startJourney()">Home</button>
+        <button class="uem-settings" onclick="startsettings()">Settings ⚙️</button>
     </div>
-    
-    <button id="toggle-panel-btn">☰</button>
-    <button id="go-back-btn">O</button>
-    <button id="toggle-dark-mode" onclick="toggleMapStyle()">☀️</button>
-    <button id="calculate-route-btn" onclick="drawPolygon()">📍</button>
 
-    <div id="search-nearby">
-        <button id="search-nearby-btn">🔍</button>
-        <div id="search-box" class="hidden">
-            <form action="/search" method="POST">
-                <input type="text" id="search-input" name="search_query" placeholder="Search Nearby Places">
-                <button type="submit" id="search-submit-btn">Search</button>
-            </form>
-        </div>
-    </div>
+    <button class="control-button" id="toggle-panel-btn" aria-label="Toggle panel">≡</button>
     
+    <div class="map-overlay"></div>
+
+    <div class="control-buttons">
+        <button class="control-button" id="go-back-btn" aria-label="Go back">🏠</button>
+        <button class="control-button" id="toggle-dark-mode" onclick="toggleMapStyle()" aria-label="Toggle dark mode">🌓</button>
+        <button class="control-button" id="calculate-route-btn" onclick="drawPolygon()" aria-label="Calculate route">🗺️</button>
+    </div>
+
+    <div class="top-search-container">
+        <form action="/search" method="POST" class="top-search-form">
+            <input type="text" id="search-input" name="search_query" placeholder="Search nearby">
+            <button type="submit" class="search-submit">
+                <span>🔍</span>
+            </button>
+        </form>
+    </div>
 
     <div id="map" style="display: none;"></div>
 
-    <div class="footer">TrackBees</div>
+    <div class="footer">
+        <span>TrackBees</span>
+        <small style="margin-left: 10px; opacity: 0.8;">v1.0</small>
+    </div>
 
     <div id="coordinates"></div>
 
@@ -70,28 +86,92 @@
         const map = document.getElementById('map');
         const coordinates = document.getElementById('coordinates');
 
+        // Update toggle panel logic
         togglePanelBtn.addEventListener('click', () => {
             sidePanel.classList.toggle('hidden');
-            if (sidePanel.classList.contains('hidden')) {
+            const isHidden = sidePanel.classList.contains('hidden');
+            
+            if (isHidden) {
                 map.style.marginLeft = '0';
                 map.style.width = '100%';
-                map.style.transform = 'scale(1)';
-                map.style.transformOrigin = 'center';
-                togglePanelBtn.style.left = '10px';
                 togglePanelBtn.innerHTML = '☰';
-                coordinates.style.left = '50%';
             } else {
-                map.style.marginLeft = '340px';
-                map.style.width = 'calc(100% - 340px)';
-                map.style.transform = 'scale(1)';
-                map.style.transformOrigin = 'left';
-                togglePanelBtn.style.left = '290px';
+                if (window.innerWidth <= 768) {
+                    map.style.marginLeft = '0';
+                    map.style.width = '100%';
+                } else {
+                    map.style.marginLeft = '340px';
+                    map.style.width = 'calc(100% - 340px)';
+                }
                 togglePanelBtn.innerHTML = '×';
-                coordinates.style.left = 'calc(50% + 170px)';
             }
         });
+
+        // Add resize handler for responsive behavior
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                map.style.marginLeft = '0';
+                map.style.width = '100%';
+            } else if (!sidePanel.classList.contains('hidden')) {
+                map.style.marginLeft = '340px';
+                map.style.width = 'calc(100% - 340px)';
+            }
+        });
+
+        document.querySelector('.map-overlay').addEventListener('click', () => {
+            sidePanel.classList.add('hidden');
+            togglePanelBtn.innerHTML = '≡';
+        });
+
+        // Add this to your existing script
+        const searchContainer = document.querySelector('.top-search-container');
+        const searchSubmit = document.querySelector('.search-submit');
+
+        togglePanelBtn.addEventListener('click', () => {
+            // ...existing toggle panel code...
+
+            // Toggle search box state
+            if (window.innerWidth <= 768) {
+                searchContainer.classList.toggle('collapsed', !sidePanel.classList.contains('hidden'));
+            }
+        });
+
+        // Handle search button click when collapsed
+        searchSubmit.addEventListener('click', (e) => {
+            if (searchContainer.classList.contains('collapsed')) {
+                e.preventDefault();
+                searchContainer.classList.remove('collapsed');
+            }
+        });
+
+        // Close expanded search when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchContainer.contains(e.target) && searchContainer.classList.contains('collapsed')) {
+                searchContainer.classList.add('collapsed');
+            }
+        });
+
+        // Add this function to handle initial mobile state
+        function handleMobileInitialState() {
+            if (window.innerWidth <= 768) {
+                sidePanel.classList.add('hidden');
+                map.style.marginLeft = '0';
+                map.style.width = '100%';
+                togglePanelBtn.innerHTML = '☰';
+            }
+        }
+
+        // Call it on page load
+        window.addEventListener('load', handleMobileInitialState);
+        
+        // Also call it on DOMContentLoaded to ensure it runs early
+        document.addEventListener('DOMContentLoaded', handleMobileInitialState);
     </script>
 
+    <!-- Add input fields for origin and destinations -->
+    <input id="origin" placeholder="Enter origin address" />
+    <input id="destination1" placeholder="Enter destination 1 address" />
+    <input id="destination2" placeholder="Enter destination 2 address" />
 
     <script src="../static/OlaMapsWebSDK/olamaps-js-sdk.umd.js"></script>
     <script src="../static/js/script.js"></script>

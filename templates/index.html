@@ -19,29 +19,26 @@
 
     <!-- Fixed navigation bar -->
     <div class="fixed-bar">
-        <div class="left-links">
+        <div class="nav-buttons">
             <a href="#about"><i class="fas fa-info-circle"></i> About</a>
             <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
-        </div>
-        <div class="right-links">
-
             <a href="/chat"><i class="fas fa-robot"></i> AI Chat</a>
-
-            <!-- <a href="https://gemini-flask-chat-1.onrender.com/"><i class="fas fa-robot"></i> AI Chat</a> -->
-
-
-            <!-- Use url_for to link to the Flask route for the login page -->
             <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <button id="toggle-dark-mode">
-                <i class="fas fa-moon"></i>
-            </button>
         </div>
     </div>
+
+    <!-- Move toggle button here, outside of fixed-bar -->
+    <button id="toggle-dark-mode">
+        <i class="fas fa-moon"></i>
+    </button>
 
     <!-- Landing section -->
     <div class="landing-container">
         <img src="{{ url_for('static', filename='resources/download.png') }}" alt="UEM Logo" class="logo">
-        <div class="landing-title"><i class="fas fa-map-marked-alt"></i> Welcome to TrackBees</div>
+        <div class="landing-title-container">
+            <div class="landing-title">Welcome to TrackBees</div>
+            <i class="fas fa-map-marked-alt map-icon"></i>
+        </div>
         <div class="landing-subtitle"><i class="fas fa-route"></i> Everyday Journey made fun And Secure</div>
         <button class="start-button" onclick="startJourney()">
             Start Journey <i class="fas fa-arrow-right"></i>
@@ -131,8 +128,12 @@
             applyTheme(isDarkMode ? 'dark' : 'light');
         });
 
+        // Set dark mode as default
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedTheme = localStorage.getItem('theme') || 'dark'; // Changed default to 'dark'
+            if (!localStorage.getItem('theme')) {
+                localStorage.setItem('theme', 'dark');
+            }
             applyTheme(savedTheme);
         });
     </script>

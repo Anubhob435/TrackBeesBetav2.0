@@ -1,0 +1,72 @@
+{
+    "reference": "5000383577111",
+    "types": [
+        "university"
+    ],
+    "matched_substrings": [
+        {
+            "offset": 0,
+            "length": 5
+        },
+        {
+            "offset": 17,
+            "length": 3
+        }
+    ],
+    "terms": [
+        {
+            "offset": 0,
+            "value": "Amity University Kolkata"
+        },
+        {
+            "offset": 26,
+            "value": "New Town"
+        },
+        {
+            "offset": 36,
+            "value": "Bidhannagar"
+        },
+        {
+            "offset": 49,
+            "value": "North 24 Parganas"
+        },
+        {
+            "offset": 68,
+            "value": "West Bengal"
+        },
+        {
+            "offset": 81,
+            "value": "700135"
+        },
+        {
+            "offset": 89,
+            "value": "India"
+        }
+    ],
+    "structured_formatting": {
+        "main_text_matched_substrings": [
+            {
+                "offset": 0,
+                "length": 5
+            },
+            {
+                "offset": 17,
+                "length": 3
+            }
+        ],
+        "secondary_text_matched_substrings": [],
+        "secondary_text": "New Town, Bidhannagar, North 24 Parganas, West Bengal, 700135, India",
+        "main_text": "Amity University Kolkata"
+    },
+    "description": "Amity University Kolkata, New Town, Bidhannagar, North 24 Parganas, West Bengal, 700135, India",
+    "geometry": {
+        "location": {
+            "lng": 88.48779,
+            "lat": 22.5959
+        }
+    },
+    "place_id": "ola-platform:5000383577111",
+    "layer": [
+        "venue"
+    ]
+}

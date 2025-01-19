@@ -25,6 +25,14 @@ html, body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     z-index: 1000;
+    background: linear-gradient(90deg, rgba(14, 157, 196, 0.8), rgba(69, 160, 73, 0.8));
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    color: white;
 }
 .suggestions {
     background-color: rgba(0, 0, 0, 0.8); /* Translucent white background */
@@ -46,6 +54,7 @@ html, body {
     transition: background-color 0.3s, color 0.3s;
     color: #ffffff;
     border-bottom: 1px solid #f0f0f0;
+    color: white;
 }
 
 .suggestion-item:last-child {
@@ -56,6 +65,8 @@ html, body {
 .suggestion-item.active {
     background-color: #f7f7f7;
     color: #1a73e8;
+    background-color: #1e293b;
+    color: white;
 }
 
 /* Scrollbar styling for webkit browsers */
@@ -76,25 +87,7 @@ html, body {
     background: #a8a8a8;
 }
 #coordinates {
-    position: absolute;
-    bottom: 5px;
-    left: 62%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-}
-#coordinates:hover {
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    transform: translateX(-50%) translateY(-2px);
+    display: none;
 }
 #animation-overlay {
     position: fixed;
@@ -109,6 +102,7 @@ html, body {
     z-index: 9999;
     transition: opacity 2s ease-out;
     opacity: 1;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
 }
 #animation-overlay.hidden {
     opacity: 0;
@@ -118,6 +112,22 @@ html, body {
     font-size: 3rem;
     font-weight: bold;
     color: #333;
+    font-size: 4rem;
+    background: linear-gradient(45deg, #0e9dc4, #45a049);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: fadeInScale 1.5s ease-out;
+}
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 #side-panel {
     position: fixed;
@@ -136,6 +146,10 @@ html, body {
     overflow-y: auto;
     transform: translateX(0);
     transition: transform 0.5s ease;
+    background: #0f172a;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
 
 #side-panel.hidden {
@@ -144,6 +158,13 @@ html, body {
 #side-panel h2 {
     margin-bottom: 20px;
     text-align: left;
+    font-size: 2.5em;
+    background: linear-gradient(45deg, #0e9dc4, #0e9dc4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    margin-bottom: 30px;
 }
 #side-panel input {
     width: 90%;
@@ -155,13 +176,24 @@ html, body {
     color: white;
     transition: background-color 0.3s;
     padding-right: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+    transition: all 0.3s ease;
+    color: white;
 }
 #side-panel input::placeholder {
     color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.8);
 }
 #side-panel input:focus {
     background-color: rgba(255, 255, 255, 0.3);
     outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #0e9dc4;
+    box-shadow: 0 0 15px rgba(14, 157, 196, 0.3);
+    transform: translateY(-2px);
 }
 #side-panel button {
     width: 50%;
@@ -183,24 +215,64 @@ html, body {
 }
 #toggle-panel-btn {
     position: fixed;
-    top: 10px;
-    left: 295px;
-    z-index: 1002;
-    background-color: #333;
+    top: 20px;
+    left: 20px;
+    z-index: 1200;
+    width: 45px;
+    height: 45px;
+    background: #0f172a;
     color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    transition: left 0.5s ease, transform 0.3s;
-    width: 40px;
-    height: px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-#toggle-panel-btn:hover {
-    transform: scale(1.1);
+
+/* Remove the positioning update for side panel open state */
+#side-panel:not(.hidden) ~ #toggle-panel-btn {
+    left: 20px; /* Keep button in same position when panel is open */
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    #toggle-panel-btn {
+        top: 20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .top-search-container {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px; /* Fixed smaller width */
+        max-width: 60%; /* Maximum percentage of screen width */
+        margin: 0 auto;
+        padding: 0;
+        z-index: 1150;
+    }
+
+    .top-search-form {
+        padding: 4px 10px; /* Smaller padding */
+    }
+
+    .top-search-form input {
+        font-size: 13px;
+        padding: 6px;
+    }
+
+    #search-box {
+        right: 20px; 
+        left: 20px; 
+        width: calc(100% - 40px); 
+        max-width: 300px;
+    }
 }
 
 #toggle-dark-mode{
@@ -220,6 +292,11 @@ html, body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     z-index: 1001;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 .fade {
@@ -237,6 +314,8 @@ html, body {
 #toggle-dark-mode:hover {
     background-color: #555;
     transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 #go-back-btn {
@@ -257,10 +336,22 @@ html, body {
     justify-content: center;
     transition: background-color 0.3s, transform 0.3s;
     z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background: #0f172a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 #go-back-btn:hover {
     background-color: #000000;
     transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: #1e293b;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 .uem-maps-btn {
     padding: 10px 20px;
@@ -272,11 +363,29 @@ html, body {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, color 0.3s;
+    background: linear-gradient(45deg, #0e9dc4, #45a049);
+    border: none;
+    padding: 12px 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background: #0f172a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
 .uem-maps-btn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #45a049, #0e9dc4);
+    background: #1e293b;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 #calculate-route-btn {
@@ -297,13 +406,79 @@ html, body {
     justify-content: center;
     transition: background-color 0.3s, transform 0.3s;
     z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 #calculate-route-btn:hover {
 background-color: #0056b3; /* Darker blue on hover */
 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+transform: scale(1.1) rotate(5deg);
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Remove old search-nearby styles */
+#search-nearby-btn, #search-box {
+    display: none;
+}
+
+/* Add new top search styles */
+.top-search-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1100;
+    width: calc(100% - 80px); /* Account for padding and side margins */
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.top-search-form {
+    display: flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 25px;
+    padding: 8px 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.top-search-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.top-search-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-submit {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.search-submit:hover {
+    transform: scale(1.1);
+}
 
 #search-nearby-btn {
     position: fixed;
@@ -317,6 +492,11 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
     color: white;
     border: none;
     cursor: pointer;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 #search-box {
@@ -330,4 +510,529 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
     border: 1px solid #ccc;
     border-radius: 5px;
     display: none;
+}
+
+.uem-settings {
+    background: linear-gradient(45deg, #0f172a, #1e293b);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    margin-top: 10px;
+    width: 50%;
+    margin-left: 75px;
+    transition: all 0.3s ease;
+}
+
+.uem-settings:hover {
+    background: linear-gradient(45deg, #1e293b, #0f172a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Update button styles */
+#toggle-panel-btn, #go-back-btn, #toggle-dark-mode, #calculate-route-btn, #search-nearby-btn {
+    background: #0f172a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    #side-panel {
+        width: 85%;
+        max-width: 300px;
+        transform: translateX(-100%);
+        background: #0f172a;
+        z-index: 1100; /* Increase z-index to ensure visibility */
+    }
+
+    #map {
+        margin-left: 0;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    #toggle-panel-btn {
+        left: 10px;
+        top: 10px;
+        z-index: 1200; /* Ensure toggle button stays on top */
+    }
+
+    /* Fix side panel visibility */
+    #side-panel.hidden {
+        transform: translateX(-100%);
+    }
+
+    #side-panel:not(.hidden) {
+        transform: translateX(0);
+    }
+
+    /* Adjust button positions for better spacing */
+    .control-buttons {
+        position: fixed;
+        right: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Add space between buttons */
+        z-index: 1050;
+    }
+
+    #go-back-btn { 
+        top: 70px; 
+        right: 10px;
+    }
+
+    #toggle-dark-mode { 
+        top: 130px;
+        right: 10px;
+    }
+
+    #calculate-route-btn { 
+        top: 190px;
+        right: 10px;
+    }
+
+    #search-nearby-btn { 
+        top: 250px;
+        right: 10px;
+    }
+
+    /* Improve touch targets */
+    #toggle-panel-btn, 
+    #go-back-btn, 
+    #toggle-dark-mode, 
+    #calculate-route-btn, 
+    #search-nearby-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Improve side panel content */
+    .uem-maps-btn, 
+    .uem-settings {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        font-size: 0.9em;
+        padding: 12px 15px;
+    }
+
+    #side-panel input {
+        width: 85%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    /* Prevent map interaction when side panel is open */
+    .map-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1090;
+    }
+
+    #side-panel:not(.hidden) ~ .map-overlay {
+        display: block;
+    }
+
+    .top-search-container {
+        top: 70px; /* Position below menu button */
+        width: calc(100% - 40px); /* Narrower on mobile */
+        max-width: none;
+        padding: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .top-search-form {
+        padding: 6px 12px;
+        background: rgba(15, 23, 42, 0.95); /* Slightly more opaque on mobile */
+    }
+
+    .top-search-form input {
+        font-size: 14px;
+        width: 100%;
+        padding: 8px 12px;
+    }
+
+    .search-submit {
+        padding: 8px;
+        font-size: 16px;
+        min-width: 40px; /* Ensure tap target size */
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Add touch-friendly hover states */
+    .search-submit:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+
+    .top-search-container {
+        top: 70px;
+        width: 200px; /* Reduced width for mobile */
+        max-width: 80%;
+        padding: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .top-search-form {
+        padding: 4px 10px;
+        background: rgba(15, 23, 42, 0.95);
+    }
+
+    .top-search-form input {
+        font-size: 13px;
+        padding: 6px 8px;
+        width: calc(100% - 30px); /* Account for search icon */
+    }
+
+    .search-submit {
+        padding: 4px;
+        font-size: 14px;
+        min-width: 30px;
+        height: 30px;
+    }
+
+    /* Mobile adjustments for search box */
+    .top-search-container {
+        position: fixed;
+        top: 20px; /* Move to top */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%; /* Use percentage width */
+        max-width: 300px; /* Maximum width */
+        margin: 0 auto;
+        padding: 0 10px;
+        z-index: 1150; /* Ensure it's above other elements */
+    }
+
+    .top-search-form {
+        padding: 6px 12px;
+        background: rgba(15, 23, 42, 0.95);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .top-search-form input {
+        width: calc(100% - 40px); /* Account for search icon */
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .search-submit {
+        width: 30px;
+        height: 30px;
+        padding: 4px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 5px;
+    }
+
+    .top-search-container {
+        transition: all 0.3s ease;
+    }
+
+    .top-search-container.collapsed {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+        left: auto;
+        transform: none;
+    }
+
+    .top-search-container.collapsed .top-search-form {
+        padding: 0;
+        background: #0f172a;
+    }
+
+    .top-search-container.collapsed .top-search-form input {
+        display: none;
+    }
+
+    .top-search-container.collapsed .search-submit {
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        border-radius: 50%;
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #side-panel:not(.hidden) ~ .top-search-container {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+        left: auto;
+        transform: none;
+    }
+
+    #side-panel:not(.hidden) ~ .top-search-container .top-search-form {
+        padding: 0;
+        background: #0f172a;
+    }
+
+    #side-panel:not(.hidden) ~ .top-search-container .top-search-form input {
+        display: none;
+    }
+
+    #side-panel:not(.hidden) ~ .top-search-container .search-submit {
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        border-radius: 50%;
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-search-container {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 400px); /* Add 200px margin on each side */
+        min-width: 200px; /* Ensure minimum width for usability */
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 0;
+        z-index: 1150;
+    }
+
+    /* When side panel is open */
+    #side-panel:not(.hidden) ~ .top-search-container.collapsed {
+        width: 45px;
+        min-width: 45px;
+        right: 15px;
+        left: auto;
+        transform: none;
+    }
+
+    .top-search-container {
+        position: fixed;
+        top: 10px;
+        right: 230px; /* Right margin */
+        left: 170px; /* Left margin */
+        width: calc(100% - 400px);
+        transform: none; /* Remove the translateX since we're using fixed margins */
+        min-width: 150px;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        z-index: 1150;
+    }
+
+    /* When side panel is open */
+    #side-panel:not(.hidden) ~ .top-search-container.collapsed {
+        width: 45px;
+        min-width: 45px;
+        right: 15px;
+        left: auto;
+    }
+
+    .top-search-container {
+        position: fixed;
+        top: 20px;
+        left: 60px; /* Move left when side panel is closed */
+        right: auto;
+        width: calc(100% - 120px); /* Adjust width considering left position */
+        max-width: 300px;
+        transform: none;
+        transition: all 0.3s ease;
+        z-index: 1150;
+    }
+
+    /* When side panel is open */
+    #side-panel:not(.hidden) ~ .top-search-container {
+        width: 45px;
+        height: 45px;
+        top: 20px;
+        right: 15px;
+        left: auto;
+    }
+
+    .top-search-form {
+        /* ...existing code... */
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+}
+
+/* Additional optimization for very small screens */
+@media screen and (max-width: 360px) {
+    .top-search-container {
+        width: 180px; /* Even smaller for very small screens */
+        max-width: 70%;
+    }
+}
+
+/* Additional optimization for very small screens */
+@media screen and (max-width: 360px) {
+    .top-search-container {
+        left: 50px; /* Slightly adjust for very small screens */
+        width: calc(100% - 100px);
+    }
+}
+
+/* Additional optimization for very small screens */
+@media screen and (max-width: 360px) {
+    .top-search-container {
+        right: 180px; /* Adjust margins for smaller screens */
+        left: 120px;
+    }
+}
+
+/* Additional optimization for very small screens */
+@media screen and (max-width: 360px) {
+    .top-search-container {
+        width: calc(100% - 100px); /* Reduce margins for very small screens */
+        min-width: 150px;
+    }
+}
+
+/* Additional optimization for very small screens */
+@media screen and (max-width: 360px) {
+    .top-search-container {
+        width: calc(100% - 20px);
+    }
+
+    .top-search-form input {
+        font-size: 13px;
+    }
+}
+
+/* Add new floating action button container */
+.floating-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1050;
+}
+
+/* Update control buttons container */
+.control-buttons {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1050;
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 768px) {
+    /* Reset existing button positions */
+    #go-back-btn, #toggle-dark-mode, #calculate-route-btn, #search-nearby-btn {
+        position: static;
+        top: auto;
+        right: auto;
+        transform: none;
+    }
+
+    .control-buttons {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    /* Add semi-transparent background for better visibility */
+    .control-buttons::before {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 30px;
+        z-index: -1;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Ensure search box appears above the buttons */
+    #search-box {
+        bottom: 80px;
+        right: 20px;
+        top: auto;
+        transform: none;
+    }
+}
+
+/* Improve button styles */
+.control-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #0f172a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 20px;
+}
+
+.control-button:hover {
+    transform: scale(1.1);
+    background: #1e293b;
+}
+
+/* Style home and find route buttons specifically */
+#go-back-btn, 
+button[type="submit"].uem-maps-btn {
+    background: #0f172a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#go-back-btn:hover, 
+button[type="submit"].uem-maps-btn:hover {
+    background: #1e293b;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Make sure all text in search boxes is white */
+input, 
+input::placeholder, 
+.search-form input, 
+.search-form input::placeholder {
+    color: white;
 }

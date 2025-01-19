@@ -3,20 +3,72 @@ const pageContent = {
     profile: `
         <h2>Profile</h2>
         <form id="profile-form">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="shadcn">
+            <div class="settings-box">
+                <div class="profile-header">
+                    <div class="avatar-upload">
+                        <div class="avatar-preview">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <button type="button" class="upload-button">
+                            <i class="fas fa-camera"></i>
+                            Change Photo
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <div class="form-group">
+                            <label for="username">
+                                <i class="fas fa-at"></i>
+                                Username
+                            </label>
+                            <input type="text" id="username" name="username" value="shadcn">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <select id="email" name="email">
+                                <option value="">Select a verified email to display</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-box">
+                <h3>
+                    <i class="fas fa-pen"></i>
+                    About You
+                </h3>
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" placeholder="Write a few sentences about yourself">I own a computer.</textarea>
+                    <span class="input-hint">Brief description for your profile.</span>
+                </div>
+            </div>
             
-            <label for="email">Email</label>
-            <select id="email" name="email">
-                <option value="">Select a verified email to display</option>
-            </select>
-            
-            <label for="bio">Bio</label>
-            <textarea id="bio" name="bio">I own a computer.</textarea>
-            
-            <h3>URLs</h3>
-            <input type="url" name="url1" value="https://shadcn.com" placeholder="Your website URL">
-            <input type="url" name="url2" value="http://twitter.com/shadcn" placeholder="Twitter URL">
+            <div class="settings-box">
+                <h3>
+                    <i class="fas fa-link"></i>
+                    Social Links
+                </h3>
+                <div class="social-links">
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-globe"></i>
+                            Website
+                        </label>
+                        <input type="url" name="url1" value="https://shadcn.com" placeholder="Your website URL">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <i class="fab fa-twitter"></i>
+                            Twitter
+                        </label>
+                        <input type="url" name="url2" value="http://twitter.com/shadcn" placeholder="Twitter URL">
+                    </div>
+                </div>
+            </div>
             
             <button type="submit">Update Profile</button>
         </form>
@@ -24,19 +76,44 @@ const pageContent = {
     account: `
         <h2>Account</h2>
         <form id="account-form">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name">
-            
-            <label for="dob">Date of Birth</label>
-            <input type="date" id="dob" name="dob">
-            
-            <label for="language">Language</label>
-            <select id="language" name="language">
-                <option value="">Select language</option>
-                <option value="en">English</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-            </select>
+            <div class="settings-box">
+                <h3>Personal Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">
+                            <i class="fas fa-user"></i>
+                            Full Name
+                        </label>
+                        <input type="text" id="name" name="name" placeholder="Your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dob">
+                            <i class="fas fa-calendar"></i>
+                            Date of Birth
+                        </label>
+                        <input type="date" id="dob" name="dob">
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-box">
+                <h3>Preferences</h3>
+                <div class="form-group">
+                    <label for="language">
+                        <i class="fas fa-globe"></i>
+                        Language
+                    </label>
+                    <select id="language" name="language">
+                        <option value="">Select language</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                    </select>
+                </div>
+            </div>
             
             <button type="submit">Update Account</button>
         </form>
@@ -44,22 +121,50 @@ const pageContent = {
     appearance: `
         <h2>Appearance</h2>
         <form id="appearance-form">
-            <label for="font">Font</label>
-            <select id="font" name="font">
-                <option value="inter">Inter</option>
-                <option value="roboto">Roboto</option>
-                <option value="arial">Arial</option>
-            </select>
-            
-            <h3>Theme</h3>
-            <div class="theme-options">
-                <div class="theme-option">
-                    <input type="radio" id="light" name="theme" value="light">
-                    <label for="light">Light</label>
+            <div class="form-grid">
+                <div class="settings-box">
+                    <h3>Font Settings</h3>
+                    <div class="font-preview-group">
+                        <div class="form-group">
+                            <label for="font">
+                                <i class="fas fa-font"></i>
+                                Font Family
+                            </label>
+                            <select id="font" name="font">
+                                <option value="inter">Inter</option>
+                                <option value="roboto">Roboto</option>
+                                <option value="arial">Arial</option>
+                                <option value="helvetica">Helvetica</option>
+                            </select>
+                        </div>
+                        <div class="font-preview">
+                            The quick brown fox jumps over the lazy dog
+                        </div>
+                    </div>
                 </div>
-                <div class="theme-option">
-                    <input type="radio" id="dark" name="theme" value="dark" checked>
-                    <label for="dark">Dark</label>
+
+                <div class="settings-box">
+                    <h3>Theme</h3>
+                    <div class="theme-grid">
+                        <div class="theme-option-card">
+                            <input type="radio" id="light" name="theme" value="light">
+                            <label for="light">
+                                <div class="theme-preview light-preview">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                Light
+                            </label>
+                        </div>
+                        <div class="theme-option-card">
+                            <input type="radio" id="dark" name="theme" value="dark" checked>
+                            <label for="dark">
+                                <div class="theme-preview dark-preview">
+                                    <i class="fas fa-moon"></i>
+                                </div>
+                                Dark
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -69,83 +174,155 @@ const pageContent = {
     notifications: `
         <h2>Notifications</h2>
         <form id="notifications-form">
-            <h3>Notify me about...</h3>
-            <div>
-                <input type="radio" id="all" name="notify" value="all">
-                <label for="all">All new messages</label>
+            <div class="form-grid">
+                <div class="settings-box notification-preferences">
+                    <h3>
+                        <i class="fas fa-bell"></i>
+                        Notification Preferences
+                    </h3>
+                    <div class="notification-options">
+                        <div class="notification-option">
+                            <input type="radio" id="all" name="notify" value="all">
+                            <label for="all">
+                                <div class="option-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="option-content">
+                                    <span class="option-title">All new messages</span>
+                                    <span class="option-description">Get notified about all messages and activities</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="notification-option">
+                            <input type="radio" id="direct" name="notify" value="direct" checked>
+                            <label for="direct">
+                                <div class="option-icon">
+                                    <i class="fas fa-at"></i>
+                                </div>
+                                <div class="option-content">
+                                    <span class="option-title">Direct messages and mentions</span>
+                                    <span class="option-description">Only get notified when you're mentioned</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="notification-option">
+                            <input type="radio" id="none" name="notify" value="none">
+                            <label for="none">
+                                <div class="option-icon">
+                                    <i class="fas fa-bell-slash"></i>
+                                </div>
+                                <div class="option-content">
+                                    <span class="option-title">Nothing</span>
+                                    <span class="option-description">Turn off all notifications</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-box email-preferences">
+                    <h3>
+                        <i class="fas fa-envelope"></i>
+                        Email Notifications
+                    </h3>
+                    <div class="email-options">
+                        <div class="email-option">
+                            <div class="option-info">
+                                <span class="option-title">Communication emails</span>
+                                <span class="option-description">Responses to your messages and mentions</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="communication" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="email-option">
+                            <div class="option-info">
+                                <span class="option-title">Marketing emails</span>
+                                <span class="option-description">Product updates and announcements</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="marketing" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="email-option">
+                            <div class="option-info">
+                                <span class="option-title">Social emails</span>
+                                <span class="option-description">Friend requests and activities</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="social">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="email-option">
+                            <div class="option-info">
+                                <span class="option-title">Security emails</span>
+                                <span class="option-description">Password changes and login alerts</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="security" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <input type="radio" id="direct" name="notify" value="direct" checked>
-                <label for="direct">Direct messages and mentions</label>
-            </div>
-            <div>
-                <input type="radio" id="none" name="notify" value="none">
-                <label for="none">Nothing</label>
-            </div>
-            
-            <h3>Email Notifications</h3>
-            <div class="toggle-option">
-                <label for="communication">Communication emails</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="communication" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="toggle-option">
-                <label for="marketing">Marketing emails</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="marketing" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="toggle-option">
-                <label for="social">Social emails</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="social">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="toggle-option">
-                <label for="security">Security emails</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="security" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
             <button type="submit">Update Notifications</button>
         </form>
     `,
     display: `
         <h2>Display</h2>
         <form id="display-form">
-            <h3>Sidebar</h3>
-            <p>Select the items you want to display in the sidebar.</p>
-            <div>
-                <input type="checkbox" id="recents" name="sidebar" value="recents" checked>
-                <label for="recents">Recents</label>
+            <div class="settings-box">
+                <h3>Sidebar</h3>
+                <p>Select the items you want to display in the sidebar.</p>
+                <div class="checkbox-grid">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="recents" name="sidebar" value="recents" checked>
+                        <label for="recents">
+                            <i class="fas fa-clock"></i>
+                            Recents
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="home" name="sidebar" value="home" checked>
+                        <label for="home">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="applications" name="sidebar" value="applications">
+                        <label for="applications">
+                            <i class="fas fa-th-large"></i>
+                            Applications
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="desktop" name="sidebar" value="desktop">
+                        <label for="desktop">
+                            <i class="fas fa-desktop"></i>
+                            Desktop
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="downloads" name="sidebar" value="downloads">
+                        <label for="downloads">
+                            <i class="fas fa-download"></i>
+                            Downloads
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="documents" name="sidebar" value="documents">
+                        <label for="documents">
+                            <i class="fas fa-file-alt"></i>
+                            Documents
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div>
-                <input type="checkbox" id="home" name="sidebar" value="home" checked>
-                <label for="home">Home</label>
-            </div>
-            <div>
-                <input type="checkbox" id="applications" name="sidebar" value="applications">
-                <label for="applications">Applications</label>
-            </div>
-            <div>
-                <input type="checkbox" id="desktop" name="sidebar" value="desktop">
-                <label for="desktop">Desktop</label>
-            </div>
-            <div>
-                <input type="checkbox" id="downloads" name="sidebar" value="downloads">
-                <label for="downloads">Downloads</label>
-            </div>
-            <div>
-                <input type="checkbox" id="documents" name="sidebar" value="documents">
-                <label for="documents">Documents</label>
-            </div>
-            
             <button type="submit">Update Display</button>
         </form>
     `

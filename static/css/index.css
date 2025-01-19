@@ -38,35 +38,43 @@ html, body {
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the content */
     align-items: center;
-    background: rgba(30, 41, 59, 0.8);
+    background: rgba(30, 41, 59, 0.95); /* Increased opacity for better readability */
     backdrop-filter: blur(8px);
-    padding: 15px 30px;
+    padding: 10px 15px; /* Reduced padding for mobile */
     color: white;
     z-index: 2; /* Ensure it stays above other content */
+    box-sizing: border-box;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 12px; /* Reduced gap for mobile */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    max-width: 100%;
+    padding: 0 10px;
 }
 
 .fixed-bar a {
     color: var(--text);
     text-decoration: none;
-    margin-right: 30px;
-    font-size: 1rem;
-    padding: 5px 10px;
-    border-radius: 15px;
-    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.9rem; /* Slightly smaller font size */
+    padding: 6px 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
-}
-
-.fixed-bar a i {
-    color: var(--primary);
+    gap: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    white-space: nowrap; /* Prevent text wrapping within buttons */
 }
 
 .fixed-bar a:hover {
     background-color: rgba(255, 255, 255, 0.2);
-    color: #f0f0f0;
+    transform: translateY(-2px);
 }
 
 /* Landing section styles */
@@ -76,7 +84,7 @@ html, body {
     text-align: center;
     color: white;
     animation: fadeIn 3s ease-in-out;
-    margin-top: 20px; /* Add margin to avoid overlap */
+    margin-top: 0; /* Add margin to avoid overlap */
     background: linear-gradient(135deg, var(--dark), var(--surface));
     min-height: 100vh;
     display: flex;
@@ -84,18 +92,25 @@ html, body {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    padding-top: 80px; /* Increased top padding to account for fixed navbar */
+}
+
+.landing-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .landing-title {
-    font-size: 4rem;
+    font-size: clamp(2rem, 5vw, 4rem); /* Responsive font size */
     font-family: 'Helvetica Neue', Arial, sans-serif; /* Modern and clean font */
     color: var(--primary);
     font-weight: bold;
-    margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgb(255, 255, 255); /* Slightly softened shadow for better readability */
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    padding: 0 15px;
+    text-align: center;
 }
 
 .landing-title i {
@@ -103,12 +118,14 @@ html, body {
 }
 
 .landing-subtitle {
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 3vw, 2rem);
     color: #ffffff;
     margin-bottom: 40px;
     text-shadow: 1px 1px 3px rgb(0, 0, 0);
     opacity: 0; /* Start hidden */
     animation: fadeInUp 2s ease-in-out 1s forwards; /* 1s delay before animation starts */
+    padding: 0 15px;
+    text-align: center;
 }
 
 .start-button {
@@ -133,8 +150,10 @@ html, body {
 }
 
 .logo {
-    margin-top: 150px;
-    width: 250px; /* Adjusted size */
+    margin-top: 20px; /* Reduced top margin */
+    width: 180px; /* Smaller logo for mobile */
+    height: auto;
+    max-width: 80%; /* Ensure logo doesn't overflow */
     margin-bottom: 0px; /* Space between logo and title */
     animation: fadeIn 1s ease-in-out;
     box-shadow: #000000;
@@ -167,22 +186,27 @@ html, body {
 
 /* Dark mode toggle button */
 #toggle-dark-mode {
-    width: 35px;
-    height: 35px;
-    background-color: rgba(255, 255, 255, 0.1);
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(30, 41, 59, 0.8);
     color: var(--primary);
     border: none;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 #toggle-dark-mode:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(30, 41, 59, 1);
     transform: rotate(360deg);
 }
 
@@ -218,6 +242,10 @@ html, body {
     font-weight: bold;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgb(255, 255, 255);
+}
+
+.dark-mode .fixed-bar {
+    background: rgba(15, 23, 42, 0.95);
 }
 
 /* Footer styles */
@@ -292,6 +320,61 @@ html, body {
     
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .nav-buttons {
+        gap: 10px;
+    }
+    
+    .fixed-bar a {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+
+    .fixed-bar {
+        padding: 8px 5px;
+    }
+
+    .nav-buttons {
+        gap: 8px;
+    }
+
+    .fixed-bar a {
+        padding: 5px 10px;
+        font-size: 0.85rem;
+    }
+
+    .fixed-bar a i {
+        font-size: 0.9rem;
+    }
+
+    .landing-container {
+        padding-top: 60px;
+    }
+
+    .logo {
+        margin-top: 10px;
+        width: 150px;
+    }
+}
+
+/* Extra small screen optimization */
+@media (max-width: 380px) {
+    .nav-buttons {
+        gap: 6px;
+    }
+
+    .fixed-bar a {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    .landing-title i {
+        font-size: 2rem;
     }
 }
 
@@ -433,4 +516,15 @@ html, body {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.map-icon {
+    font-size: 3rem;
+    color: var(--primary);
+}
+
+@media (min-width: 769px) {
+    .landing-title-container {
+        flex-direction: row;
+    }
 }
