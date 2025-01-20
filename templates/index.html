@@ -40,8 +40,8 @@
             <i class="fas fa-map-marked-alt map-icon"></i>
         </div>
         <div class="landing-subtitle"><i class="fas fa-route"></i> Everyday Journey made fun And Secure</div>
-        <button class="start-button" onclick="startJourney()">
-            Start Journey <i class="fas fa-arrow-right"></i>
+        <button class="start-button" onclick="redirectToLogin()">
+            Log in to continue <i class="fas fa-arrow-right"></i>
         </button>
     </div>
 
@@ -64,6 +64,11 @@
                 <i class="fas fa-clock"></i>
                 <h3>Live Updates</h3>
                 <p>Get instant notifications and real-time tracking updates about your child's location and journey status.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-code-branch"></i>
+                <h3>Open Source</h3>
+                <p>Built with Indian resources and made publicly available. Our commitment to transparency and community-driven development ensures reliable and secure tracking solutions for everyone.</p>
             </div>
         </div>
         <div class="about-description">
@@ -100,6 +105,10 @@
     <script>
         function startJourney() {
             window.location.href = "{{ url_for('afterlog') }}"; // Use url_for to reference the afterlog route
+        }
+
+        function redirectToLogin() {
+            window.location.href = "{{ url_for('login') }}"; // Use url_for to reference the login route
         }
 
         async function loadThemeSettings() {
