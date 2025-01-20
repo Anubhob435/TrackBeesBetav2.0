@@ -19,6 +19,7 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
+    transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
 .background-overlay {
@@ -158,6 +159,19 @@ html, body {
     padding: 0 15px;
     text-align: center;
     margin-top: -10px; /* Added negative margin */
+    min-height: 3.6em; /* Add fixed height for two lines of text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#typed-text {
+    display: block;
+    min-height: 2.4em; /* Height for two lines */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .start-button {
@@ -188,8 +202,13 @@ html, body {
     height: auto;
     max-width: 80%; /* Ensure logo doesn't overflow */
     margin-bottom: 0px; /* Space between logo and title */
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 1s ease-in-out, floatAnimation 3s ease-in-out infinite;
     box-shadow: #000000;
+}
+
+@keyframes floatAnimation {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 /* Section styles */
@@ -233,14 +252,15 @@ html, body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 #toggle-dark-mode:hover {
     background-color: rgba(30, 41, 59, 1);
-    transform: rotate(360deg);
+    transform: rotate(360deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(29, 185, 255, 0.3);
 }
 
 /* Dark mode styles */
@@ -322,6 +342,13 @@ html, body {
 
     .landing-subtitle {
         font-size: 1.5rem;
+        min-height: 4.5em; /* Slightly taller for mobile */
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    #typed-text {
+        min-height: 3em;
     }
 
     .start-button {
@@ -439,6 +466,22 @@ html, body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, var(--surface), rgba(30, 41, 59, 0.8));
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: var(--mouse-y, 0);
+    left: var(--mouse-x, 0);
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(29, 185, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    transition: transform 0.2s;
 }
 
 .feature-card:hover {
@@ -562,6 +605,11 @@ html, body {
     display: flex;
     align-items: center;
     gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateX(10px);
 }
 
 .contact-item i {
@@ -573,6 +621,16 @@ html, body {
     font-size: 3rem;
     color: var(--primary);
     margin-bottom: 20px;
+}
+
+.section-icon i {
+    animation: pulseAnimation 2s infinite;
+}
+
+@keyframes pulseAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .right-links {
@@ -590,4 +648,8 @@ html, body {
     .landing-title-container {
         flex-direction: row;
     }
+}
+
+html {
+    scroll-behavior: smooth;
 }

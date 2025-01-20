@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Use Flask's url_for to reference the static CSS file -->
     <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet"/>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 <body>
     <!-- Background and overlay -->
@@ -39,7 +41,10 @@
             <div class="landing-title">Welcome to TrackBees</div>
             <i class="fas fa-map-marked-alt map-icon"></i>
         </div>
-        <div class="landing-subtitle"><i class="fas fa-route"></i> Everyday Journey made fun And Secure</div>
+        <div class="landing-subtitle">
+            <i class="fas fa-route"></i>&nbsp;&nbsp;
+            <span id="typed-text"></span>
+        </div>
         <button class="start-button" onclick="redirectToLogin()">
             Log in to continue <i class="fas fa-arrow-right"></i>
         </button>
@@ -144,6 +149,55 @@
                 localStorage.setItem('theme', 'dark');
             }
             applyTheme(savedTheme);
+        });
+
+        // Update Typed.js initialization with more spacing
+        new Typed('#typed-text', {
+            strings: [
+                'Everyday Journey made fun And Secure',
+                'Real-time tracking for peace of mind',
+                'Safe and reliable school transport',
+                'Making every trip count'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true
+        });
+
+        // ScrollReveal initialization
+        ScrollReveal().reveal('.feature-card', {
+            delay: 200,
+            distance: '50px',
+            duration: 1000,
+            origin: 'bottom',
+            interval: 200
+        });
+
+        ScrollReveal().reveal('.contact-item', {
+            delay: 200,
+            distance: '30px',
+            duration: 800,
+            origin: 'left',
+            interval: 150
+        });
+
+        // Add interactive hover effect to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Parallax effect for background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelector('.background').style.transform = `translateY(${scrolled * 0.5}px)`;
         });
     </script>
 </body>
