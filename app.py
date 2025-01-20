@@ -173,11 +173,14 @@ def login():
         cursor.close()
         conn.close()
 
-        if user and user[2] == password:
-            session['user_id'] = user[0]  # Store user ID in session
-            return redirect(url_for('afterlog'))
+        if user:
+            if user[2] == password:
+                session['user_id'] = user[0]  # Store user ID in session
+                return redirect(url_for('afterlog'))
+            else:
+                return render_template('login.html', error_message="Incorrect password. Please try again.")
         else:
-            return "Match not found. Please try again."
+            return render_template('login.html', error_message="Account not found. Please check your phone number.")
 
     return render_template('login.html')
 

@@ -206,6 +206,26 @@ a:hover {
     box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
 }
 
+/* Error Message */
+.error-message {
+    background: var(--error);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
 /* Role Buttons Styling */
 .role-buttons {
     display: flex;

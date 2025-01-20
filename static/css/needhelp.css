@@ -211,15 +211,18 @@ h1 {
     right: 20px;
     background-color: #1DB9FF;
     color: white;
-    padding: 15px 25px;
+    padding: 10px 15px; /* reduced padding */
     border-radius: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* reduced gap */
     transition: transform 0.3s ease;
+    font-size: 0.9rem; /* smaller font size */
+    width: fit-content; /* ensure it only takes necessary width */
+    max-width: 200px; /* limit maximum width */
 }
 
 .chat-box:hover {
@@ -429,8 +432,8 @@ h1 {
     }
 
     .chat-box {
-        padding: 15px;
-        font-size: 0.9rem;
+        padding: 8px 12px; /* even smaller on mobile */
+        font-size: 0.85rem;
     }
 
     .live-chat {

@@ -12,15 +12,20 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 20px;
-    width: 90vw;
+    width: 95vw;
+    height: 90vh;
     max-width: 1200px;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .box {
@@ -32,13 +37,16 @@ body {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    padding: 40px 20px;
+    padding: 20px;
     font-size: 1.2rem;
     font-weight: 500;
     text-decoration: none;
     background-color: var(--surface);
     transition: all 0.3s ease;
-    aspect-ratio: 1;
+    aspect-ratio: auto;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .box i {
@@ -64,24 +72,46 @@ body {
 @media (max-width: 768px) {
     .container {
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: 95vh;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .box {
+        padding: 15px;
+        font-size: 1rem;
+    }
+    
+    .box i {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
     .container {
-        grid-template-columns: 1fr;
-        gap: 15px;  /* Reduced from 20px */
-        padding: 15px;  /* Reduced from 20px */
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: 95vh;
+        width: 100%;
+        gap: 10px;
+        padding: 10px;
     }
     
     .box {
-        padding: 20px 15px;  /* Reduced from 30px 20px */
-        font-size: 1rem;  /* Reduced from 1.2rem */
-        aspect-ratio: 16/9;  /* Changed from 1 to make boxes shorter */
+        padding: 15px;
+        font-size: 0.9rem;
+        aspect-ratio: auto;
+        height: 100%;
     }
     
     .box i {
-        font-size: 2rem;  /* Reduced from 2.8rem */
-        margin-bottom: 10px;  /* Reduced from 20px */
+        font-size: 1.8rem;
+        margin-bottom: 8px;
     }
 }

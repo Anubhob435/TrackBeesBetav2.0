@@ -1,71 +1,108 @@
 {
-    "reference": "5000383577111",
+    "reference": "5000317393246",
     "types": [
-        "university"
+        "bus_station"
     ],
     "matched_substrings": [
         {
-            "offset": 0,
+            "offset": 6,
             "length": 5
         },
         {
-            "offset": 17,
-            "length": 3
+            "offset": 23,
+            "length": 5
+        },
+        {
+            "offset": 47,
+            "length": 5
+        },
+        {
+            "offset": 0,
+            "length": 1
+        },
+        {
+            "offset": 29,
+            "length": 1
+        },
+        {
+            "offset": 53,
+            "length": 1
         }
     ],
     "terms": [
         {
             "offset": 0,
-            "value": "Amity University Kolkata"
+            "value": "5 No. Garia Bus Stand (Garia 5 No. Bus Stand)"
         },
         {
-            "offset": 26,
-            "value": "New Town"
+            "offset": 47,
+            "value": "Garia 5no. Bus Terminus"
         },
         {
-            "offset": 36,
-            "value": "Bidhannagar"
+            "offset": 72,
+            "value": "Raja Subodh Chandra Mullick Road"
         },
         {
-            "offset": 49,
-            "value": "North 24 Parganas"
+            "offset": 106,
+            "value": "Baghajatin"
         },
         {
-            "offset": 68,
+            "offset": 118,
+            "value": "Kolkata"
+        },
+        {
+            "offset": 127,
             "value": "West Bengal"
         },
         {
-            "offset": 81,
-            "value": "700135"
+            "offset": 140,
+            "value": "700047"
         },
         {
-            "offset": 89,
+            "offset": 148,
             "value": "India"
         }
     ],
     "structured_formatting": {
         "main_text_matched_substrings": [
             {
+                "offset": 6,
+                "length": 5
+            },
+            {
+                "offset": 23,
+                "length": 5
+            },
+            {
+                "offset": 0,
+                "length": 1
+            },
+            {
+                "offset": 29,
+                "length": 1
+            }
+        ],
+        "secondary_text_matched_substrings": [
+            {
                 "offset": 0,
                 "length": 5
             },
             {
-                "offset": 17,
-                "length": 3
+                "offset": 6,
+                "length": 1
             }
         ],
-        "secondary_text_matched_substrings": [],
-        "secondary_text": "New Town, Bidhannagar, North 24 Parganas, West Bengal, 700135, India",
-        "main_text": "Amity University Kolkata"
+        "secondary_text": "Garia 5no. Bus Terminus, Raja Subodh Chandra Mullick Road, Baghajatin, Kolkata, West Bengal, 700047, India",
+        "main_text": "5 No. Garia Bus Stand (Garia 5 No. Bus Stand)"
     },
-    "description": "Amity University Kolkata, New Town, Bidhannagar, North 24 Parganas, West Bengal, 700135, India",
+    "description": "5 No. Garia Bus Stand (Garia 5 No. Bus Stand), Garia 5no. Bus Terminus, Raja Subodh Chandra Mullick Road, Baghajatin, Kolkata, West Bengal, 700047, India",
     "geometry": {
         "location": {
-            "lng": 88.48779,
-            "lat": 22.5959
+            "lng": 88.37782,
+            "lat": 22.4665
         }
     },
-    "place_id": "ola-platform:5000383577111",
+    "place_id": "ola-platform:5000317393246",
     "layer": [
         "venue"
     ]
