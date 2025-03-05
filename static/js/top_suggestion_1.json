@@ -1,5 +1,5 @@
 {
-    "reference": "5000359350605",
+    "reference": "5000041732361",
     "types": [
         "school",
         "premise",
@@ -17,6 +17,10 @@
         {
             "offset": 6,
             "length": 4
+        },
+        {
+            "offset": 11,
+            "length": 3
         }
     ],
     "terms": [
@@ -62,6 +66,10 @@
             {
                 "offset": 6,
                 "length": 4
+            },
+            {
+                "offset": 11,
+                "length": 3
             }
         ],
         "secondary_text_matched_substrings": [
@@ -80,7 +88,7 @@
             "lat": 22.45334
         }
     },
-    "place_id": "ola-platform:5000359350605",
+    "place_id": "ola-platform:5000041732361",
     "layer": [
         "venue"
     ]

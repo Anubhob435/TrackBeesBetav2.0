@@ -9,6 +9,9 @@ let for_coor1 = [];
 let for_coor2 = [];
 let startLocation, endLocation;
 
+// Add at the top of file
+let globalDest1Coords = null;
+let globalDest2Coords = null;
 
 const lightStyle = "https://api.olamaps.io/tiles/vector/v1/styles/default-light-standard/style.json";
 const darkStyle = "https://api.olamaps.io/tiles/vector/v1/styles/default-dark-standard/style.json";
@@ -470,6 +473,11 @@ async function fetchAndDisplayRoute(origin, destination) {
     saveRouteData(data);
 }
 
+// Getter functions
+const getDestination1Coords = () => globalDest1Coords;
+const getDestination2Coords = () => globalDest2Coords;
+
+
 document.getElementById('calculate-route-btn').addEventListener('click', async () => {
     const originAddr = document.getElementById('origin').value;
     const dest1 = document.getElementById('destination1').value;
@@ -481,7 +489,9 @@ document.getElementById('calculate-route-btn').addEventListener('click', async (
     }
     if (dest1 && dest2) {
         const dest1Coords = await fetchCoordinates(dest1);
+        globalDest1Coords = dest1Coords;  // Store globally
         const dest2Coords = await fetchCoordinates(dest2);
+        globalDest2Coords = dest2Coords;  // Store globally
         await fetchAndDisplayRoute(await dest1Coords, await dest2Coords);
     }
     await fetchRouteFromSuggestions();

@@ -15,11 +15,16 @@ app.secret_key = 'your_secret_key'  # Required for session management
 # Update imports
 import google.generativeai as genai
 
-# Replace the API key configuration with environment variable
-genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+# Get the Gemini API key from environment variables
+gemini_api_key = os.getenv('GEMINI_API_KEY')
+if not gemini_api_key:
+    raise ValueError("GEMINI_API_KEY not found in environment variables. Make sure it's set in the .env file.")
+
+# Configure Gemini with the API key
+genai.configure(api_key=gemini_api_key)
 
 # Define a model
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 
 #
@@ -95,6 +100,8 @@ def get_route():
     data = request.get_json()
     origin = data.get('origin')
     destination = data.get('destination')
+
+    print(origin, destination)
 
     if not origin or not destination:
         return jsonify({'error': 'Origin and destination are required'}), 400
