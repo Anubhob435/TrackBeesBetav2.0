@@ -1,5 +1,7 @@
 import mysql.connector
 
+#this is a comment
+
 DB_HOST = "buh89x1pi8cgvaw4161i-mysql.services.clever-cloud.com"
 DB_USER = "ucwyejivetooukiz"
 DB_PASSWORD = "aAo8DieytbUo0FiYV4RY"
