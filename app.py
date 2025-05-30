@@ -5,6 +5,7 @@ import os
 import mysql.connector
 from dotenv import load_dotenv
 import googlemaps
+import google.generativeai as genai
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -13,7 +14,7 @@ app.secret_key = 'your_secret_key'  # Required for session management
 
 
 # Update imports
-import google.generativeai as genai
+
 
 # Get the Gemini API key from environment variables
 gemini_api_key = os.getenv('GEMINI_API_KEY')
