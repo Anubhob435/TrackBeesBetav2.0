@@ -1,10 +1,10 @@
-Flask==2.0.1
-requests==2.31.0
-python-dotenv==1.0.0
-mysql-connector-python==8.2.0
-google-generativeai==0.3.1
-Werkzeug==2.3.7
-googlemaps==4.10.0
-mysql-connector==2.2.9
-gunicorn==20.1.0
+Flask
+requests
+python-dotenv
+mysql-connector-python
+google-generativeai
+Werkzeug
+googlemaps
+mysql-connector
+gunicorn
 # Add any other dependencies your app needs
